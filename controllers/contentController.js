@@ -2,8 +2,8 @@ const db = require('../db');
 const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3({
-  accessKeyId: "AKIATCKANXPS2Z4D2ZZ5",
-  secretAccessKey: "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",
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
 function getImageKey(imageUrl) {

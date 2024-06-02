@@ -2,10 +2,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../modules/userModule');
 const AWS = require('aws-sdk');
+require('dotenv').config();
 
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIATCKANXPS67H2QPEX',
-  secretAccessKey: '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'
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 const generateToken = (user) => {
@@ -17,7 +18,7 @@ const generateToken = (user) => {
     role: user.role, 
     register_date: user.register_date,
     profile_image: user.profile_image 
-  }, 'secretKey', { expiresIn: '168h' });
+  }, process.env.JWT_SECRET_KEY, { expiresIn: '168h' });
 };
 
 const changeImage = async (req, res) => {
@@ -94,7 +95,7 @@ module.exports = {
           register_date: user.register_date,
           profile_image: user.profile_image 
         },
-        'secretKey',
+        process.env.JWT_SECRET_KEY,
         { expiresIn: '168h' }
       );
 
@@ -204,7 +205,7 @@ module.exports = {
   saveImage: async (req, res) => {
     try {
       const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, 'secretKey'); 
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY); 
 
       const userId = decodedToken.userId;
       const { userImageUrl } = req.body;
