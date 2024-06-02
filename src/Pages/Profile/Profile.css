@@ -1,0 +1,264 @@
+/* Profile.css */
+
+.profile {
+    flex: 1 1 auto;
+    border-radius: .75rem;
+    font-size: 20px;
+    margin: 20px;
+    margin-top: 72px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-container {
+    flex-direction: column;
+    width: 100%;
+}
+
+.user {
+    position: relative;
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 30px;
+    
+    border-radius: .75rem;
+    border: .0625rem solid var(--border-color-dark);
+
+    background-color: var(--black-header);
+    backdrop-filter: blur(20px);
+}
+
+.user-img {
+    position: relative;
+    min-height: 9.5rem;
+    min-width: 9.5rem;
+    max-height: 9.5rem;
+    max-width: 9.5rem;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 2px solid var(--border-color-dark);
+}
+
+.profile-image {
+    object-fit: cover;
+}
+
+.user-info {
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.user-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.user-header-title {
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.user-joining {
+    background: var(--black-5);
+    border-radius: .25rem;
+    border: 0.0625rem solid var(--border-color-light);
+    padding: 10px;
+}
+
+.user-role {
+    color: var(--span-text-dark);
+}
+
+.user-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+
+
+/* МОДАЛЬНОЕ ОКНО */
+
+.modal-hidden {
+    transition: all 1s cubic-bezier(.4,0,.2,1);
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.modal {
+    transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s cubic-bezier(.4,0,.2,1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+    background: #171717e6;
+}
+
+.modal-content {
+    display: flex;
+    min-height: 100vh !important;
+}
+
+.modal-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 4rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.modal-change {
+    max-width: 30.125rem;
+    height: 100%;
+    width: 100%;
+    padding: 2rem 2.5rem 2.5rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color-dark);
+    background: var(--black-4);   /*#181818*/
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.change-title {
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 115%;
+    letter-spacing: -.12rem;
+    margin-bottom: 1.5rem;
+}
+
+.change-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.input-label-title {
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 120%;
+    letter-spacing: -.01em;
+    color: var(--white-text-dark);
+}
+
+.input-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .5rem;
+}
+
+/* НИЖНЯЯ ЧАСТЬ */
+
+.main-bottom, .profile-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.profile-favorite, .security {
+    flex: 50%;
+    width: 100%;
+    padding: 30px;
+
+    border-radius: .75rem;
+    border: 1px solid var(--border-color-dark);
+
+    background-color: var(--black-header);
+    backdrop-filter: blur(20px);
+}
+
+.profile-favorite-title, .security-title {
+    font-size: 2rem;
+    line-height: 140%;
+    margin-bottom: .75rem;
+}
+
+.security-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.375rem;
+    line-height: 130%;
+}
+
+.security-option, .security-value {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+@media (max-width: 400px) {
+    .profile {
+        margin: 0;
+        margin-top: 72px;
+        margin-bottom: 20px;
+    }
+
+    .profile-header {
+        margin-left: 15px;
+    }
+
+    .main-bottom {
+        flex-direction: column;
+    }
+
+    .user-img {
+        display: none;
+    }
+
+    .user-info {
+        gap: 20px;
+    }
+
+    .user-header-top {
+        gap: 10px;
+    }
+
+    .user-joining span {
+        display: none;
+    }
+
+    .user, .profile-favorite, .security {
+        border-radius: 0;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 700px) {
+    .main-bottom {
+        flex-direction: column;
+    }
+
+    .user-img {
+        display: none;
+    }
+
+    .user-info {
+        gap: 20px;
+    }
+
+    .user-header-top {
+        gap: 10px;
+    }
+
+    .user-joining span {
+        display: none;
+    }
+}

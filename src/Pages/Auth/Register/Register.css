@@ -1,0 +1,103 @@
+/* Register.css */
+
+.register-container {
+    display: flex;
+    height: 100vh;
+}
+
+.header-auth {
+    position: absolute;
+    padding: 30px;
+}
+
+.register-page {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* ФОРМА */
+.register-form {
+    max-width: 550px;
+    width: 100%;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 2rem;
+}
+
+.register-form h1 {
+    font-size: 30px;
+}
+
+.register-form p {
+    margin: 10px 0px;
+    font-size: 18px;
+}
+
+.reg-acc {
+    font-size: 20px;
+    margin: 10px 0px;
+    color: var(--span-text-dark);
+}
+
+.reg-acc a {
+    color: var(--white-text-dark);
+    transition: color 0.2s ease-in-out;
+}
+
+.reg-acc a:hover {
+    color: var(--blue-1);
+}
+
+.register-form form {
+    display: flex;
+    flex-direction: column;
+    color: var(--span-text-dark);
+}
+
+.auth-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.register-copyright a {
+    color: var(--white-text-dark);
+    transition: color 0.2s ease-in-out;
+}
+
+.register-copyright a:hover {
+    color: var(--blue-1);
+}
+
+/* ПОДВАЛ */
+
+.register-footer-info {
+    display: flex;
+    margin: 15px 0px;
+}
+
+.register-footer-info a {
+    margin: 0px 5px;
+    color: var(--white-text-dark);
+    transition: color 0.2s ease-in-out;
+}
+
+.register-footer-info a:hover {
+    color: var(--blue-1);
+}
+
+.register-footer p {
+    text-align: center;
+    margin: 15px 0px;
+    color: var(--span-text-dark);
+}

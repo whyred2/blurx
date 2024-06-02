@@ -1,0 +1,194 @@
+.auth-comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+
+}
+
+.comment-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+  
+.comment {
+    position: relative;
+    display: flex;
+    gap: 15px;
+    background-color: var(--black-6);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+
+.comment-reply {
+    position: relative;
+    display: flex;
+    gap: 15px;
+    background-color: var(--black-6);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 1100px;
+}
+
+.replies-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    position: relative;
+    gap: 15px;
+}
+  
+.replies-line {
+    position: absolute;
+    top: -120px;
+    left: -55px;
+    width: 70px;
+    height: 200px;
+    border-left: 5px solid var(--black-6);
+    border-bottom: 5px solid var(--black-6);
+    border-bottom-left-radius: 20px;
+}
+  
+.avatar-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+  
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.comment-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.comment-left {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.comment-rating {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.comment-text {
+    display: flex;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.comment-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.like-btn, .dislike-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 9999px;
+    transition: 0.3s;
+    transform-origin: center;
+    overflow: hidden;
+}
+
+.like-btn:hover,
+.like-btn:focus,
+.liked {
+  background-color: var(--green-2);
+}
+
+.like-btn {
+    color: var(--green-1);
+}
+
+.dislike-btn {
+    color: var(--red-1);
+}
+
+.dislike-btn:hover,
+.dislike-btn:focus,
+.disliked {
+    background-color: var(--red-2);
+}
+
+.comment-right {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.complain-btn {
+    display: flex;
+    gap: 10px;
+}
+
+.del-btn:hover {
+    background-color: var(--red-1);
+}
+
+.del-btn:active {
+    background-color: var(--green-1);
+}
+
+
+
+.complaint-form-container {
+    position: absolute;
+    padding: 10px;
+    background-color: var(--black-2);
+    border: 2px solid var(--border-color-dark);
+    border-radius: 15px;
+    top: 60px;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.complaint-form-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.complaint-btn {
+    flex: 1
+}
+
+.text-area {
+    outline: 0;
+    min-width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+    resize:none;
+}

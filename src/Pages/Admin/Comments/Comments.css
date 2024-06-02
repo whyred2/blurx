@@ -1,0 +1,131 @@
+.admin-item-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    transition: all 0.5s ease-in-out;
+}
+
+.admin-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 600px; 
+    overflow-y: auto;
+}
+
+.admin-item {
+    background-color: var(--black-4);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.admin-item-title {
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-item-span {
+    color: var(--span-text-dark);
+    display: flex;
+}
+
+.admin-item-text {
+    color: var(--white-text-dark);
+}
+
+.admin-comments {
+    background-color: var(--black-4);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-comment-item, .complain-text {
+    background-color: var(--black-6);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-comment-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.admin-complains-btns {
+    justify-content: flex-start;
+}
+
+.admin-comment-top-left {
+    display: flex;
+}
+
+.admin-comment-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.admin-comment-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-text-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+
+.admin-icon {
+    transition: transform 0.5s ease-out;
+}
+
+
+.admin-item-list {
+    overflow: hidden;
+    max-height: 0;
+}
+
+.admin-component {
+    gap: 0px;
+    transition: gap 0.3s ease-out;
+}
+
+.admin-component.open {
+    gap: 10px;
+}
+
+.admin-text-icon:hover {
+    transform: translateX(3px);
+}
+
+.admin-icon.clicked {
+    transform: rotate(360deg);
+}
+
+.chat {
+    margin-top: 0px;
+    
+}
+
+.chat.open {
+    margin-top: 10px;
+}

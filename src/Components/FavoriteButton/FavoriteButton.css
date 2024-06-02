@@ -1,0 +1,18 @@
+.favorite-btn {
+    background: #a18cd1;
+    color: var(--regular-white);
+    padding: 10px 15px;
+    border-radius: 5rem;
+    transition: box-shadow 0.3s, background-color 0.3s;
+    user-select: none;
+    box-shadow: 0 0px 20px 5px #a18cd14d;
+}
+
+.favorite-btn:hover {
+    background: #a18cd1a1;
+    box-shadow: 0 0px 20px 5px #a18cd1a1;
+}
+
+.heart-icon {
+    fill: var(--regular-white);
+}

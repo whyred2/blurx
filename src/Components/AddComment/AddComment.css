@@ -1,0 +1,36 @@
+.comments-thread-title {
+    margin-bottom: 1rem;
+    font-size: 30px;
+}
+  
+.editor-area {
+    border: 2px solid var(--border-color-dark);
+    border-radius: 10px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    resize: none;
+    transition: 0.3s;
+}
+  
+.form-group {
+    margin-bottom: 10px;
+}
+  
+.editor-area:focus {
+    outline: 0;
+    border: 2px solid var(--blue-1);
+    -webkit-box-shadow: 0 0px 20px 5px #3500d552;
+    box-shadow: 0 0px 20px 5px #3500d552;
+    
+}
+
+.comment-btns {
+    display: flex;
+    gap: 15px;
+}
+
+.comment_save {
+    width: 200px;
+}

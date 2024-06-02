@@ -1,0 +1,221 @@
+/* AddContent.css */
+
+.add-content {
+    flex: 1 1 auto;
+    font-size: 20px;
+    padding: 20px;
+    margin: 20px;
+    border-radius: .75rem;
+    background-color: var(--black-3);
+    border: 1px solid var(--border-color-dark);
+    margin-top: 72px;
+}
+
+.add-content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.content-type-selector {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.change-type {
+    margin: 10px 0px 20px;
+    width: 500px;
+}
+
+.select-option {
+    color: var(--regular-black);
+}
+
+.type-btn {
+    width: 500px;
+}
+
+
+/* Movies */
+
+.movie-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.content-block {
+    display: flex;
+    gap: 15px;
+}
+
+.content-media {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cover-img {
+    background-color: var(--blue-1);
+    border-radius: 10px;
+    width: 380px;
+    height: 555px;
+    transition: 0.2s;
+    object-fit: cover;
+}
+
+.cover-img:hover {
+    background-color: var(--blue-2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.image {
+    border-radius: 10px;
+    width: 380px;
+    height: 562px;
+}
+
+.remove-btn {
+    color: var(--regular-white);
+    display: flex;
+    width: 100%;
+    margin: 10px 0px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.upload-btn {
+    color: var(--regular-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.add-content-trailer {
+    margin-top: 65px;
+}
+
+.content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.content-conteiner {
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    background-color: var(--black-4);
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-content-label {
+    margin-bottom: 5px;
+}
+
+.add-content-title {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.add-content-info {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.add-genres {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-genres {
+    display: flex;
+    gap: 15px;
+}
+
+.add-genre-btn {
+    width: 30%;
+}
+
+.remove-genre-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.selected-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.description {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    max-height: 400px;
+}
+
+.content-media-img {
+    display: flex;
+    gap: 15px;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    background-color: var(--black-4);
+    padding: 15px;
+}
+
+.media-img {
+    width: 100%;
+    border-radius: 10px;
+    background-color: var(--blue-1);
+    transition: 0.2s;
+}
+
+.media-img:hover {
+    background-color: var(--blue-2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.add-content-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.upload-frame {
+    padding: 40px 0px;
+}
+
+.frame-image {
+    border-radius: 10px;
+}
+
+.content-episodes-names {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+}

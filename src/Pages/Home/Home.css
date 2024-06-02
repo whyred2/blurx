@@ -1,0 +1,350 @@
+/* Home.css */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Movie.css */
+
+.content-container {
+  max-width: 1300px;
+  color: var(--white-text-dark);
+}
+
+.content-header {
+  font-size: 60px;
+  font-weight: 600;
+  margin: 0px 72px;
+}
+
+/* Стили для каждого элемента слайдера */
+.content-slider {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 15px;
+  background-color: var(--black-3);
+  padding: 15px;
+}
+
+.content-image {
+  height: 400px;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.content-list {
+  display: flex;
+  gap: 15px;
+}
+
+.slick-slider {
+  display: flex;
+  align-items: center;
+}
+
+.slick-slide {
+  padding-right: 8px; 
+  padding-left: 8px;
+}
+
+.slick-slider.slick-initialized {
+  display: flex;
+  gap: 15px;
+}
+
+
+.navigation-btn {
+  color: var(--white-text-dark);
+  min-height: 200px;
+  min-width: 50px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-title {
+  color: var(--blue-1);
+  transition: 0.3s;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.content-title:hover {
+  color: var(--blue-2);
+}
+
+.content-rating {
+  display: flex;
+  position: absolute;
+  top: 0px;
+  align-items: center;
+  background-color: var(--blue-1);
+  color: var(--gold);
+  padding: 5px 10px;
+  gap: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 10px;
+}
+
+.content-link {
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.content-footer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.content-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Auth.css */
+
+.auth-container {
+  color: var(--regular-white);
+  display: flex;
+  max-width: 1300px;
+  padding: 20px;
+  border-radius: 15px;
+  gap: 50px;
+  align-self: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  box-shadow: inset 0 0px 8px rgba(0, 0, 0, 0.5);
+
+  background: linear-gradient(45deg, #de6161, #2657eb, #23a86a, #3899b9, #6f86d6, #de6161);
+  /* #ff5f6d, #ff8e3c, #fec833, #21e6c1, #4facfe, #00f2fe */
+  /* #0f2027, #203a43, #2c5364 */
+  /* #0c0032, #1a0061, #230090, #3500d4 */
+  /* #8128ff, #6f86d6, #3b9ebe, #53b8b3, #3b9ebe, #6f86d6, #8128ff */
+  background-size: 1000% 1000%;
+  animation: gradient 15s ease infinite;
+}
+
+.auth-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+}
+
+.about-title {
+  margin-bottom: 10px;
+}
+
+.auth-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+a.regular-btn.enter-auth-btn {
+  color: var(--regular-white);
+  border: 1px solid var(--regular-white);
+}
+
+a.regular-btn.enter-auth-btn:hover {
+  color: var(--white-text-light);
+}
+
+.enter-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 60px;
+  font-size: larger;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Анимация радужной обводки */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.content-add {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 16px;
+}
+
+.all-content-container {
+  max-width: 1300px;
+  margin: 20px auto;
+}
+
+.all-content-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.all-content {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 15px;
+  background-color: var(--black-3);
+  padding: 15px;
+  width: 300px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  user-select: none;
+  border: 2px solid;
+  border-radius: 15px;
+  padding: 10px;
+  transition: all 0.3s;
+  font-size: 22px;
+  background-color: var(--black-header);
+  backdrop-filter: blur(20px);
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-text-dark);
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page:hover {
+  background-color: var(--blue-2);
+  color: var(--regular-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.active-page {
+  color: var(--regular-white);
+  background-color: var(--blue-1);
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.pagination li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.page:active {
+  background-color: var(--green-1);
+  box-shadow: 0 0px 20px 5px rgba(0, 165, 41, 0.3);
+  transition: 0.1s;
+}
+
+
+.page-previous, .page-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.page-previous:hover, .page-next:hover {
+  color: var(--regular-white);
+  background-color: var(--blue-1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.page-previous:active, .page-next:active {
+  background-color: var(--green-1);
+  box-shadow: 0 0px 20px 5px rgba(0, 165, 41, 0.3);
+  transition: 0.1s;
+}
+
+.page-break {
+  display: flex;
+  height: 40px;
+  align-items: flex-end;
+}
+
+
+@media (max-width: 768px) {
+  .home {
+    margin: 70px 20px;
+  }
+
+  .content-header {
+    margin: 0;
+  }
+
+  .navigation-btn {
+    display: none;
+  }
+
+  .content-image {
+    height: 350px;
+  }
+
+  .content-title {
+    text-wrap: nowrap;
+  }
+  
+  .auth-container {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .content-image {
+    height: 270px;
+  }
+
+  .auth-container {
+    display: none;
+  }
+}
+
+@media (min-width: 1390px) {
+  .content-container {
+    margin: auto;
+  }
+}

@@ -1,0 +1,103 @@
+/* Login.css */
+
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+
+
+/* ПЕРВАЯ ПОЛОВИНА */
+.login-page {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+  
+
+/* ФОРМА */
+.login-form {
+    max-width: 550px;
+    width: 100%;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 2rem;
+}
+
+.login-form h1 {
+    font-size: 30px;
+}
+
+.login-form p {
+    margin: 10px 0px;
+    font-size: 18px;
+}
+
+.login-page span {
+    color: var(--blue-1);
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.login-btn {
+    margin: 15px 0px;
+}
+
+.login-acc {
+    color: var(--span-text-dark);
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.login-acc a {
+    color: var(--white-text-dark);
+    transition: color 0.2s ease-in-out;
+}
+
+.login-acc a:hover {
+    color: var(--blue-1);
+}
+
+
+/* ПОДВАЛ */
+.login-footer-info {
+    display: flex;
+    margin: 15px 0px;
+}
+
+.login-logo {
+    text-align: center;
+}
+
+.login-logo a {
+    text-decoration: none;
+    color: var(--white-text-dark);
+    font-size: 1.5rem;
+}
+
+.login-footer-info a {
+    margin: 0px 5px;
+    color: var(--white-text-dark);
+    transition: color 0.2s ease-in-out;
+}
+
+.login-footer-info a:hover {
+    color: var(--blue-1);
+}
+
+.login-footer p {
+    text-align: center;
+    margin: 15px 0px;
+    color: var(--span-text-dark);
+}

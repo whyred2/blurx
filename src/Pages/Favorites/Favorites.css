@@ -1,0 +1,126 @@
+#cm-1 {
+    padding: 15px;
+}
+
+#cht-1 {
+    margin: -15px -15px 0px -15px;
+}
+
+.fb-1 {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.favorite-conteiner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.favorite-item {
+    display: flex;
+    gap: 15px;
+    background-color: var(--black-4);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 10px;
+    margin: 0px;
+    padding: 10px;
+    position: relative;
+}
+
+.favorite-media {
+    min-width: 100px;
+    min-height: 150px;
+}
+
+.favorite-img {
+    border-radius: 5px;
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.favorite-body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.favorite-titles {
+    display: flex;
+    gap: 15px;
+    font-size: 28px;
+}
+
+.favorite-title {
+    color: var(--blue-1);
+}
+
+.favorite-item-info {
+    display: flex;
+    gap: 10px;
+}
+
+.favorite-item-year,
+.favorite-item-duration,
+.favorite-item-age,
+.favorite-item-info {
+    color: var(--span-text-dark);
+    font-size: 20px;
+}
+
+.favorite-item-description {
+    background-color: var(--black-5);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 5px;
+    padding: 5px 10px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    overflow-y: scroll;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    display: flex;
+    /* align-items: center; */
+    min-width: 70%;
+    max-height: 75px;
+    margin-top: 10px;
+}
+
+.favorite-absolution {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.favorite-item-rating,
+.favorite-item-type {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--black-5);
+    padding: 10px;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 10px;
+}
+
+.icon-star {
+    min-width: 24px;
+}
+
+.favorite-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.favorite-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+

@@ -1,0 +1,61 @@
+/* SideMenu.jsx */
+
+.side-menu {
+    width: auto;
+    height: fit-content;    
+    font-size: 1.375rem;
+    padding: 20px;
+    border-radius: .75rem;
+    border: 1px solid var(--border-color-dark);
+    background-color: var(--black-header);
+    backdrop-filter: blur(20px);
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-item {
+    cursor: pointer;
+    transition: color 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 250px;
+}
+
+.side-btn {
+    margin: 10px;
+}
+
+.menu-btn {
+    color: var(--white-text-dark);
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5rem;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.menu-btn:hover{
+    color: var(--regular-white);
+    background-color: var(--blue-1);
+    box-shadow: 0 0px 20px 5px #3500d593;
+}
+
+.menu-btn:active {
+    background-color: var(--green-1);
+    box-shadow: 0 0px 20px 5px rgba(0, 165, 41, 0.3);
+    transition: 0.1s;
+    transform: translateY(2px);
+}
+
+.active {
+    color: var(--regular-white);
+    background-color: var(--blue-1);
+    box-shadow: 0 0px 20px 5px #3500d593;
+}
+
+.menu-title {
+    margin-bottom: 15px;
+}

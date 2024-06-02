@@ -1,0 +1,97 @@
+.users-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: .75rem;
+}
+
+.users-btn-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.users-btn-section {
+    flex: 50% 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.users-btn {
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    padding: 15px;
+    width: 100%;
+    background-color: var(--black-3);
+}
+
+.add-btn {
+    width: 100%;
+    height: 51px;
+}
+
+.users-lable {
+    margin-bottom: 5px;
+}
+
+.user-input {
+    display: flex;
+    gap: 10px;
+}
+
+.change-btn {
+    width: 200px;
+}
+
+.option {
+    color: var(--white-text-light);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color-dark);
+    border-radius: .75rem;
+    background-color: var(--black-4);
+}
+
+.password-cell {
+    max-width: 200px; /* Установите желаемую максимальную ширину */
+    overflow: auto; /* Добавляет скролл-бар, если содержимое выходит за пределы ячейки */
+}
+
+thead th {
+    padding: 8px; 
+    text-align: left;
+}
+
+tbody td {
+    border-collapse: collapse;
+    border: 1px solid var(--border-color-dark);
+    padding: 8px; /* Внутренний отступ ячеек тела */
+    text-align: left;
+}
+
+
+.add-menu {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}
+
+
+
+.add-menu-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.menu-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+

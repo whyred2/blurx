@@ -1,0 +1,13 @@
+.admin-item-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.admin-item-list-enter {
+    max-height: 500px; /* Примерное значение максимальной высоты списка */
+}
+
+.admin-item-list-enter-active {
+    max-height: 1000px; /* Максимальная высота списка */
+}

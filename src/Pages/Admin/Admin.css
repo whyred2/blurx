@@ -1,0 +1,62 @@
+/* Admin.css */
+
+.admin-page {
+    flex: 1 1 auto;
+    border-radius: .75rem;
+    font-size: 20px;
+    margin: 20px;
+    margin-top: 72px;
+}
+
+.admin-title {
+    margin-bottom: 20px;
+}
+
+.admin-container {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+
+.admin-conteiner {
+    flex: 1 1 auto;
+    font-size: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-component {
+    width: calc(100vw - 347px);
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 15px;
+    padding: 15px;
+
+    background-color: var(--black-header);
+    backdrop-filter: blur(20px);
+
+    transition: width 0.3s ease-out;
+}
+
+.admin-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.admin-content-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.admin-main-title {
+    font-size: 2rem;
+}
+
+.admin-regular-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}

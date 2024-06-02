@@ -1,0 +1,116 @@
+.filter-conteiner {
+    display: flex;
+    min-width: 375px;
+    height: max-content;
+}
+
+#sg-1 {
+    max-width: 355px;
+    margin-top: revert-layer;
+}
+
+.filter-group {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-genres {
+    flex-direction: column;
+}
+
+.genres {
+    margin-top: 20px;
+}
+
+.filter-group.genres,
+.filter-group.age {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.marker-range {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.verical-line-100 {
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background-color: currentColor;
+    overflow: auto;
+}
+
+.verical-line-30 {
+    position: absolute;
+    width: 2px;
+    height: 5px;
+    background-color: currentColor;
+    overflow: auto;
+}
+
+.date-filter-value {
+    margin-top: 15px;
+    position: absolute;
+    left: -18px;
+    right: 18px;
+    font-size: 80%;
+}
+
+.row {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.date-value {
+    position: absolute;
+}
+
+.input-range__slider-container, 
+.input-range__track {
+    transition: left 0s ease-out !important;
+}
+
+.input-range__label--min,
+.input-range__label--max {
+    display: none !important;
+}
+
+.input-range__slider {
+    background-color: var(--blue-1) !important; 
+    border: 1px solid var(--blue-1) !important;
+    border: none !important;
+    height: 25px !important;
+    width: 15px !important;
+    border-radius: 5px !important;
+    margin-left: -7px !important;
+    margin-top: -20px !important;
+    transition: 0.3s !important;
+    z-index: 3;
+}
+
+.input-range__slider:active {
+    background-color: var(--green-1) !important;
+    box-shadow: 0 0px 20px 5px var(--green-shadow);
+    transform: scale(1.2) !important;
+}
+
+.input-range__track--active {
+    background: var(--blue-1) !important;
+}
+
+.input-range__label-container {
+    font-family: "Nunito", sans-serif !important;
+}
+
+.input-range__label--value {
+    color: var(--span-text-dark) !important;
+    position: absolute !important;
+    top: -40px !important;
+}
+
+
