@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
-  origin: 'https://staging.d33cepq3mrlgso.amplifyapp.com',
+  origin: 'https://client.d24mrj9smrlg9o.amplifyapp.com/',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 };
