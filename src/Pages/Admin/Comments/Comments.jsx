@@ -31,7 +31,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchCommentStats = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/comment/stats');
+                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/stats');
                 setCommentStats({
                     totalComments: parseInt(response.data.comments.movieComments.count) + 
                         parseInt(response.data.comments.seriesComments.count) + 
@@ -60,7 +60,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/comment/latest');
+                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/latest');
                 const { movieComments, seriesComments } = response.data;
                 const mergedComments = [...movieComments, ...seriesComments];
                 mergedComments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -76,7 +76,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/comment/complaints');
+                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/complaints');
                 
                 const { 
                     movieCommentsComplaints, 
@@ -164,7 +164,7 @@ const Comments = () => {
             }
 
             const response = await axios.delete(
-                `http://localhost:3001/admin/comment/complaints/${complaintId}`, 
+                `https://blurx-cd4ad36829cd.herokuapp.com/admin/comment/complaints/${complaintId}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -192,7 +192,7 @@ const Comments = () => {
             console.log(commentId);
         
             const response = await axios.delete(
-                `http://localhost:3001/admin/comment/${commentId}`, 
+                `https://blurx-cd4ad36829cd.herokuapp.com/admin/comment/${commentId}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

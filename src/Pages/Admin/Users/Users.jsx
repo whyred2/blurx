@@ -53,7 +53,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsersStats = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/admin/users/stats');
+            const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/admin/users/stats');
             setUsersStats(response.data);
         } catch (error) {
             console.error('Ошибка при загрузке статистики:', error);
@@ -75,7 +75,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3001/auth/all-users");
+        const response = await fetch("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
         const usersData = await response.json();
         setUsers(usersData);
       } catch (error) {
@@ -89,7 +89,7 @@ const Users = () => {
   const handleSearchUser = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/auth/user/${searchUserId}`
+        `https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${searchUserId}`
       );
       const foundUserData = response.data;
 
@@ -108,14 +108,14 @@ const Users = () => {
 
   const handleAddUser = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/register", {
+      const response = await axios.post("https://blurx-cd4ad36829cd.herokuapp.com/auth/register", {
         username: addUsername,
         email: addEmail,
         password: addPassword,
         register_date: new Date().toISOString(),
       });
 
-      const user = await axios.get("http://localhost:3001/auth/all-users");
+      const user = await axios.get("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
       const usersData = user.data;
       setUsers(usersData);
 
@@ -142,10 +142,10 @@ const Users = () => {
       }
 
       // Отправка запроса на удаление пользователя
-      await axios.delete(`http://localhost:3001/auth/user/${deleteUserId}`);
+      await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${deleteUserId}`);
 
       // Обновление списка пользователей после удаления
-      const response = await axios.get("http://localhost:3001/auth/all-users");
+      const response = await axios.get("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
       const usersData = response.data;
       setUsers(usersData);
 
@@ -173,13 +173,13 @@ const Users = () => {
   const handleUpdateUsername = async () => {
     try {
       await axios.patch(
-        `http://localhost:3001/auth/user/${userId}/update-username`,
+        `https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${userId}/update-username`,
         {
           newUsername: newUsername,
         }
       );
 
-      const response = await axios.get("http://localhost:3001/auth/all-users");
+      const response = await axios.get("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
       const usersData = response.data;
       setUsers(usersData);
 
@@ -196,13 +196,13 @@ const Users = () => {
   const handleUpdateEmail = async () => {
     try {
       await axios.patch(
-        `http://localhost:3001/auth/user/${userId}/update-email`,
+        `https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${userId}/update-email`,
         {
           newEmail: newEmail,
         }
       );
 
-      const response = await axios.get("http://localhost:3001/auth/all-users");
+      const response = await axios.get("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
       const usersData = response.data;
       setUsers(usersData);
 
@@ -219,7 +219,7 @@ const Users = () => {
   const handleUpdatePassword = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/auth/user/${userId}/update-password`,
+        `https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${userId}/update-password`,
         {
           newPassword: newPassword,
         }
@@ -234,13 +234,13 @@ const Users = () => {
   const handleUpdateRole = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/auth/user/${userId}/update-role`,
+        `https://blurx-cd4ad36829cd.herokuapp.com/auth/user/${userId}/update-role`,
         {
           newRole: newRole,
         }
       );
 
-      const user = await axios.get("http://localhost:3001/auth/all-users");
+      const user = await axios.get("https://blurx-cd4ad36829cd.herokuapp.com/auth/all-users");
       const usersData = user.data;
       setUsers(usersData);
 

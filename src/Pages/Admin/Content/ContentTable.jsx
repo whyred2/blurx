@@ -122,7 +122,7 @@ const AdminTable = ({ columns, data, defaultPageSize = 10 }) => {
     const contentType = row.contentType;
     data[rowIndex][columnId] = value;
 
-    axios.put('http://localhost:3001/admin/content/update', {
+    axios.put('https://blurx-cd4ad36829cd.herokuapp.com/admin/content/update', {
       contentType,
       rowIndex: row.id,
       columnId,
@@ -269,7 +269,7 @@ const AdminTables = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/admin/content');
+        const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/admin/content');
         console.log(response.data)
         const movies = response.data.content.movies.map(movie => ({ ...movie, contentType: 'movie' }));
         const series = response.data.content.series.map(series => ({ ...series, contentType: 'series' }));
@@ -386,7 +386,7 @@ const AdminTables = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/admin/content/${id}`);
+      await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/admin/content/${id}`);
       setMovieData(movieData.filter(movie => movie.id !== id));
       setSeriesData(seriesData.filter(series => series.id !== id));
     } catch (error) {

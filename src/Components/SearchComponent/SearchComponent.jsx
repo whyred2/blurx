@@ -20,7 +20,7 @@ const SearchContainer = () => {
             if (query.trim() === '') {
                 return;
             } else {
-                const response = await axios.get(`http://localhost:3001/content/search?q=${query}`);
+                const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/search?q=${query}`);
                 setSearchResults(response.data);
             }
         } catch (error) {

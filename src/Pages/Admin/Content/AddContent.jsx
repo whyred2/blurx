@@ -43,7 +43,7 @@ const AddContent = () => {
     const fetchGenres = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/content/genres"
+          "https://blurx-cd4ad36829cd.herokuapp.com/content/genres"
         );
         
 
@@ -99,7 +99,7 @@ const AddContent = () => {
       const formData = new FormData();
       formData.append("coverImage", file);
       const response = await axios.post(
-        "http://localhost:3001/content/upload-cover",
+        "https://blurx-cd4ad36829cd.herokuapp.com/content/upload-cover",
         formData,
         {
           headers: {
@@ -120,7 +120,7 @@ const AddContent = () => {
 
   const handleRemoveCover = async () => {
     try {
-      await axios.delete("http://localhost:3001/content/remove-cover", {
+      await axios.delete("https://blurx-cd4ad36829cd.herokuapp.com/content/remove-cover", {
         data: {
           imageUrl: coverImage,
         },
@@ -152,7 +152,7 @@ const AddContent = () => {
       });
 
       const response = await axios.post(
-        "http://localhost:3001/content/upload-frames",
+        "https://blurx-cd4ad36829cd.herokuapp.com/content/upload-frames",
         formData,
         {
           headers: {
@@ -172,7 +172,7 @@ const AddContent = () => {
     try {
       const frameToRemove = frames[index];
       const response = await axios.post(
-        "http://localhost:3001/content/remove-frames",
+        "https://blurx-cd4ad36829cd.herokuapp.com/content/remove-frames",
         { frameUrls: [frameToRemove] }
       );
 
@@ -210,7 +210,7 @@ const AddContent = () => {
 
       console.log("data", movieData);
 
-      const response = await axios.post("http://localhost:3001/content/add-movie", movieData
+      const response = await axios.post("https://blurx-cd4ad36829cd.herokuapp.com/content/add-movie", movieData
       );
       toast.success('Фільм успішно доданий');
       console.log("Фільм успішно доданий:", response.data);
@@ -243,7 +243,7 @@ const AddContent = () => {
 
       console.log("data", seriesData);
 
-      const response = await axios.post("http://localhost:3001/content/add-series", seriesData);
+      const response = await axios.post("https://blurx-cd4ad36829cd.herokuapp.com/content/add-series", seriesData);
       toast.success('Серіал успішно доданий');
       console.log("Серіал успішно доданий:", response.data);
     } catch (error) {

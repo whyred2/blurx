@@ -27,7 +27,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/auth/profile', {
+        const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/auth/profile', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -67,7 +67,7 @@ const Profile = () => {
   const handlePasswordChange = async () => {
     try {
       await axios.patch(
-        'http://localhost:3001/profile/change-password',
+        'https://blurx-cd4ad36829cd.herokuapp.com/profile/change-password',
         {
           oldPassword,
           newPassword,
@@ -90,7 +90,7 @@ const Profile = () => {
   const handleSaveButtonClick = async () => {
     try {
       await axios.patch(
-        'http://localhost:3001/profile/update-username',
+        'https://blurx-cd4ad36829cd.herokuapp.com/profile/update-username',
         { newUsername },
         {
           headers: {
@@ -132,7 +132,7 @@ const Profile = () => {
       formData.append("userImage", file);
   
       const response = await axios.post(
-        "http://localhost:3001/auth/change-image",
+        "https://blurx-cd4ad36829cd.herokuapp.com/auth/change-image",
         formData,
         {
           headers: {
@@ -163,7 +163,7 @@ const Profile = () => {
       console.log('userImageUrl:', userImageUrl); // Логируем userImageUrl
   
       const response = await axios.patch(
-        'http://localhost:3001/auth/save-user-image',
+        'https://blurx-cd4ad36829cd.herokuapp.com/auth/save-user-image',
         { userId, userImageUrl }, // Передаем userId и userImageUrl на сервер
         {
           headers: {

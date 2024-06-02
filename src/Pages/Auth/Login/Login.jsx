@@ -52,7 +52,7 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/auth/login', formData);
+            const response = await axios.post('https://blurx-cd4ad36829cd.herokuapp.com/auth/login', formData);
             const token = response.data.token;
             localStorage.setItem('token', token);
             toast.success('Успіх');  

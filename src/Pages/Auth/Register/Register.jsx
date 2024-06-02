@@ -70,7 +70,7 @@ const Register = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:3001/auth/register', formData);
+            const response = await axios.post('https://blurx-cd4ad36829cd.herokuapp.com/auth/register', formData);
             const token = response.data.token;
             localStorage.setItem('token', token);
             toast.success('Успіх');  

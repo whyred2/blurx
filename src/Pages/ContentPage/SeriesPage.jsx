@@ -51,14 +51,14 @@ const MoviePage = () => {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/content/series/${seriesId}`);
+                const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/series/${seriesId}`);
                 setSeries(response.data);
 
                 const token = localStorage.getItem('token');
                 if (!token) {
                     return;
                 }
-                const userRatingResponse = await axios.get(`http://localhost:3001/content/series/${seriesId}/user-rating`,
+                const userRatingResponse = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/series/${seriesId}/user-rating`,
                     {
                         params: {
                             seriesId: seriesId
@@ -71,7 +71,7 @@ const MoviePage = () => {
                 setUserRating(userRatingResponse.data.userRating);
                 setRating(userRatingResponse.data.rating);
 
-                const ratingCountResponse = await axios.get(`http://localhost:3001/content/series/${seriesId}/rating-count`);
+                const ratingCountResponse = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/series/${seriesId}/rating-count`);
                 setRatingCount(ratingCountResponse.data.count);
             } catch (error) {
                 console.error('Ошибка при получении данных о сериале:', error);
@@ -94,7 +94,7 @@ const MoviePage = () => {
             }
 
             const response = await axios.post(
-                `http://localhost:3001/content/series/${seriesId}/rating`,
+                `https://blurx-cd4ad36829cd.herokuapp.com/content/series/${seriesId}/rating`,
                 { value, seriesId:series.series.id },
                 {
                     headers: {
@@ -142,7 +142,7 @@ const MoviePage = () => {
                 return;
             }
 
-            const response = await axios.delete(`http://localhost:3001/content/series/${seriesId}/delete-series`);
+            const response = await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/content/series/${seriesId}/delete-series`);
             if (response.status === 200) {
                 console.log('Серіал успішно вилучено');
                 navigate('/');

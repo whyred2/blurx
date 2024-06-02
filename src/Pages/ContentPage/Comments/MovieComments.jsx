@@ -86,7 +86,7 @@ const MovieComments = ({ movieId }) => {
     useEffect(() => {
         const fetchComments = async () => {
           try {
-            const response = await axios.get(`http://localhost:3001/comment/movie/${mediaId}`);
+            const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/comment/movie/${mediaId}`);
             response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             setComments(response.data);
           } catch (error) {
@@ -152,7 +152,7 @@ const MovieComments = ({ movieId }) => {
 
         try {
             const response = await axios.post(
-                `http://localhost:3001/${endpoint}`, 
+                `https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, 
                 {
                     comment_id
                 },
@@ -188,7 +188,7 @@ const MovieComments = ({ movieId }) => {
 
         try {
             const response = await axios.post(
-                `http://localhost:3001/${endpoint}`, 
+                `https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, 
                 {
                     commentId
                 },
@@ -221,7 +221,7 @@ const MovieComments = ({ movieId }) => {
             console.log('del-comment')
         }
         try {
-            const response = await axios.delete(`http://localhost:3001/${endpoint}`, {
+            const response = await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -255,7 +255,7 @@ const MovieComments = ({ movieId }) => {
                 endpoint = `comment/movie/${commentId}/complaint`;
                 console.log('complaint')
             }
-            await axios.post(`http://localhost:3001/${endpoint}`, {
+            await axios.post(`https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, {
                 movie_id: movieId,
                 complaint_text: complaintText,
             },

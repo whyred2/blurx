@@ -43,7 +43,7 @@ const Filters = ({ setFilteredContent }) => {
             },
         };
         try {
-            const response = await axios.post('http://localhost:3001/content/filter', filtersToSend);
+            const response = await axios.post('https://blurx-cd4ad36829cd.herokuapp.com/content/filter', filtersToSend);
             setFilteredContent(response.data);
         } catch (error) {
             console.error('Ошибка при отправке фильтров на сервер:', error);
@@ -62,7 +62,7 @@ const Filters = ({ setFilteredContent }) => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/content/genres');
+                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/content/genres');
                 setGenres(response.data);
             } catch (error) {
                 console.error('Ошибка при получении списка жанров:', error);
