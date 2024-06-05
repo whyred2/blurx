@@ -34,7 +34,7 @@ const Content = () => {
     useEffect(() => {
         const fetchContentStats = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/admin/content/stats');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/content/stats`);
                 setContentStats(response.data);
             } catch (error) {
                 console.error('Ошибка при загрузке статистики:', error);

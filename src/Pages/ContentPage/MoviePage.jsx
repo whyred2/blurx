@@ -51,14 +51,14 @@ const MoviePage = () => {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-                const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/movies/${movieId}`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/content/movies/${movieId}`);
                 setMovie(response.data);
 
                 const token = localStorage.getItem('token');
                 if (!token) {
                     return;
                 }
-                const userRatingResponse = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/movies/${movieId}/user-rating`,
+                const userRatingResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/content/movies/${movieId}/user-rating`,
                     {
                         params: {
                             movieId: movieId
@@ -71,7 +71,7 @@ const MoviePage = () => {
                 setUserRating(userRatingResponse.data.userRating);
                 setRating(userRatingResponse.data.rating);
 
-                const ratingCountResponse = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/content/movies/${movieId}/rating-count`);
+                const ratingCountResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/content/movies/${movieId}/rating-count`);
                 setRatingCount(ratingCountResponse.data.count);
             } catch (error) {
                 console.error('Ошибка при получении данных о фильме:', error);
@@ -94,7 +94,7 @@ const MoviePage = () => {
             }
 
             const response = await axios.post(
-                `https://blurx-cd4ad36829cd.herokuapp.com/content/movies/${movieId}/rating`,
+                `${process.env.REACT_APP_SERVER_URL}/content/movies/${movieId}/rating`,
                 { value, movieId:movie.movie.id },
                 {
                     headers: {
@@ -143,7 +143,7 @@ const MoviePage = () => {
                 return;
             }
 
-            const response = await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/content/movies/${movieId}/delete-movie`);
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/content/movies/${movieId}/delete-movie`);
             if (response.status === 200) {
                 console.log('Фільм успішно вилучено');
                 navigate('/');

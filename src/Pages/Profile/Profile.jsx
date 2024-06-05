@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-
+import AvatarUpload from './AvatarUpload';
 import './Profile.css';
 import { toast } from 'react-toastify';
 
@@ -27,7 +27,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/auth/profile', {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -67,7 +67,7 @@ const Profile = () => {
   const handlePasswordChange = async () => {
     try {
       await axios.patch(
-        'https://blurx-cd4ad36829cd.herokuapp.com/profile/change-password',
+        `${process.env.REACT_APP_SERVER_URL}/profile/change-password`,
         {
           oldPassword,
           newPassword,
@@ -90,7 +90,7 @@ const Profile = () => {
   const handleSaveButtonClick = async () => {
     try {
       await axios.patch(
-        'https://blurx-cd4ad36829cd.herokuapp.com/profile/update-username',
+        `${process.env.REACT_APP_SERVER_URL}/profile/update-username`,
         { newUsername },
         {
           headers: {
@@ -132,7 +132,7 @@ const Profile = () => {
       formData.append("userImage", file);
   
       const response = await axios.post(
-        "https://blurx-cd4ad36829cd.herokuapp.com/auth/change-image",
+        `${process.env.REACT_APP_SERVER_URL}/auth/change-image`,
         formData,
         {
           headers: {
@@ -163,7 +163,7 @@ const Profile = () => {
       console.log('userImageUrl:', userImageUrl); // Логируем userImageUrl
   
       const response = await axios.patch(
-        'https://blurx-cd4ad36829cd.herokuapp.com/auth/save-user-image',
+        `${process.env.REACT_APP_SERVER_URL}/auth/save-user-image`,
         { userId, userImageUrl }, // Передаем userId и userImageUrl на сервер
         {
           headers: {
@@ -184,6 +184,22 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteUserImage = async () => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/auth/delete-user-image`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      toast.success("Аватар успешно удален");
+    } catch (error) {
+      console.error("Ошибка при удалении изображения:", error);
+    }
+  };
+
   return (
     <main className="profile">
       <section className="profile-section">
@@ -194,26 +210,8 @@ const Profile = () => {
         <div className="profile-container">
           <div className="main-top">
             <div className="user">
-              <div className="user-img">
-                <button className="upload-btn" onClick={handleImageButtonClick}>
-                  {userImage ? (
-                    <img
-                      className="profile-image"
-                      src={userImage}
-                      alt="Аватар"
-                    />
-                  ) : (
-                    <p className='text'>Оберіть зображення</p>
-                  )}
-                </button>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  ref={uploadButtonRef}
-                  style={{ display: "none" }}
-                />
-              </div>
+              
+              <AvatarUpload />
 
               <div className="user-info">
                 <header className="user-header">
@@ -234,6 +232,15 @@ const Profile = () => {
                   )}
                 </header>
                 <div className="user-bottom">
+                  {userImage && (
+                    <button
+                      className="regular-btn"
+                      onClick={handleDeleteUserImage}
+                    >
+                      Видалити аватар
+                    </button>
+                  )}
+                  
                   <button
                     className="regular-btn"
                     onClick={handleEditButtonClick}

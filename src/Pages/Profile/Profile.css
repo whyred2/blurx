@@ -44,6 +44,7 @@
     border-radius: 1rem;
     object-fit: cover;
     border: 2px solid var(--border-color-dark);
+    overflow: hidden;
 }
 
 .profile-image {
@@ -83,8 +84,8 @@
 
 .user-bottom {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
+    gap: 10px;
 }
 
 

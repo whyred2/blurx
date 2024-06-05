@@ -31,7 +31,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchCommentStats = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/stats');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/stats`);
                 setCommentStats({
                     totalComments: parseInt(response.data.comments.movieComments.count) + 
                         parseInt(response.data.comments.seriesComments.count) + 
@@ -60,7 +60,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/latest');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/latest`);
                 const { movieComments, seriesComments } = response.data;
                 const mergedComments = [...movieComments, ...seriesComments];
                 mergedComments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -76,7 +76,7 @@ const Comments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/comment/complaints');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/complaints`);
                 
                 const { 
                     movieCommentsComplaints, 
@@ -164,7 +164,7 @@ const Comments = () => {
             }
 
             const response = await axios.delete(
-                `https://blurx-cd4ad36829cd.herokuapp.com/admin/comment/complaints/${complaintId}`, 
+                `${process.env.REACT_APP_SERVER_URL}/admin/comment/complaints/${complaintId}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -192,7 +192,7 @@ const Comments = () => {
             console.log(commentId);
         
             const response = await axios.delete(
-                `https://blurx-cd4ad36829cd.herokuapp.com/admin/comment/${commentId}`, 
+                `${process.env.REACT_APP_SERVER_URL}/admin/comment/${commentId}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

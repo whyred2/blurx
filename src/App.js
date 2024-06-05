@@ -51,6 +51,7 @@ function App() {
   return (    
     <Router>
         <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
+          <div id="modal-root"></div>
           <BackgroundLines />
           <Routes>
             <Route path="/" element={<OutletFooter isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />}>

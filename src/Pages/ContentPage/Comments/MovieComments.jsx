@@ -11,6 +11,23 @@ import { Eraser } from 'lucide-react';
 
 import AddComment from '../../../Components/AddComment/AddComment';
 
+const adjustRepliesLineHeight = () => {
+    const comments = document.querySelectorAll('.comment-item');
+    
+    comments.forEach(comment => {
+        const repliesLine = comment.querySelector('.replies-line');
+        const commentReply = comment.querySelector('.comment-reply');
+        const repliesContainer = comment.querySelector('.replies-container');
+        
+        if (repliesLine && repliesContainer && commentReply) {
+            const repliesHeight = repliesContainer.offsetHeight;
+
+            repliesLine.style.height = `${repliesHeight - 90}px`;
+            repliesLine.style.top = `${-repliesHeight + 135}px`;
+        }
+    });
+};
+
 const MovieComments = ({ movieId }) => {
     const mediaId = movieId;
     const [authenticated, setAuthenticated] = useState(false);
@@ -85,13 +102,13 @@ const MovieComments = ({ movieId }) => {
 
     useEffect(() => {
         const fetchComments = async () => {
-          try {
-            const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/comment/movie/${mediaId}`);
-            response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            setComments(response.data);
-          } catch (error) {
-            console.error('Ошибка при получении комментариев:', error);
-          }
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/comment/movie/${mediaId}`);
+                response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setComments(response.data);
+            } catch (error) {
+                console.error('Ошибка при получении комментариев:', error);
+            }
         };
     
         fetchComments();
@@ -152,7 +169,7 @@ const MovieComments = ({ movieId }) => {
 
         try {
             const response = await axios.post(
-                `https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, 
+                `${process.env.REACT_APP_SERVER_URL}/${endpoint}`, 
                 {
                     comment_id
                 },
@@ -188,7 +205,7 @@ const MovieComments = ({ movieId }) => {
 
         try {
             const response = await axios.post(
-                `https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, 
+                `${process.env.REACT_APP_SERVER_URL}/${endpoint}`, 
                 {
                     commentId
                 },
@@ -221,7 +238,7 @@ const MovieComments = ({ movieId }) => {
             console.log('del-comment')
         }
         try {
-            const response = await axios.delete(`https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/${endpoint}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -255,7 +272,7 @@ const MovieComments = ({ movieId }) => {
                 endpoint = `comment/movie/${commentId}/complaint`;
                 console.log('complaint')
             }
-            await axios.post(`https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`, {
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/${endpoint}`, {
                 movie_id: movieId,
                 complaint_text: complaintText,
             },
@@ -275,6 +292,17 @@ const MovieComments = ({ movieId }) => {
             console.error('Ошибка при отправке жалобы:', error);
         }
     };
+
+    useEffect(() => {
+        setTimeout(() => {    
+            adjustRepliesLineHeight();
+            window.addEventListener('resize', adjustRepliesLineHeight);
+            
+            return () => {
+                window.removeEventListener('resize', adjustRepliesLineHeight);
+            };
+        }, 1500);
+    }, []);
 
     return (
         <div className='comments-container content-conteiner'>
@@ -302,95 +330,102 @@ const MovieComments = ({ movieId }) => {
                                         )}
                                     </div>
                                     <div className='comment-body'>
-                                        <div className='comment-top'>
-                                            <div className='comment-left'>
-                                                <p>{comment.username}</p>
-                                                
-                                                {comment.rating !== 0 && (
-                                                    <>
-                                                        <div className='info-span'>{' | '}</div>
-                                                        <div className='comment-rating'>
-                                                            <IoStar size={24} min={24} />
-                                                            {comment.rating}
-                                                        </div>
-                                                    </>
-                                                )}
-                                                
-                                                <div className='info-span'>{' | '}</div>
-                                                <p className='info-span'>{formatDate(comment.created_at)}</p>
-                                            </div>
-                                            <div className='comment-right'>
-                                                {userRole === 'admin' && (
-                                                    <div className='regular-btn complain-btn del-btn' onClick={() => handleCommentDelete(comment.id)}>
-                                                        <Eraser size={24} min={24} />
-                                                        <span className='tooltip-text'>Видалити коментар</span>
-                                                    </div>
-                                                )}
-                                                
-                                                <div 
-                                                    className='regular-btn complain-btn' 
-                                                    onClick={() => handleComplaintButtonClick(comment.id)}
-                                                >
-                                                    <LuMegaphone size={24} min={24}/>
-                                                    <span className='tooltip-text'>Подати скаргу</span>
+                                        <div className='flex'>
+                                            <div className='comment-top'>
+                                                <div className='comment-left'>
+                                                    <p>{comment.username}</p>
+                                                    
+                                                    {comment.rating !== 0 && (
+                                                        <>
+                                                            <div className='info-span'>{' | '}</div>
+                                                            <div className='comment-rating'>
+                                                                <IoStar size={24} min={24} className='mw-24' />
+                                                                {comment.rating}
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                    
+                                                    <div className='info-span'>{' | '}</div>
+                                                    <p className='info-span'>{formatDate(comment.created_at)}</p>
                                                 </div>
-
-                                                {showForm && selectedCommentId === comment.id && (
-                                                    <div className="complaint-form-container" ref={formRef}>
-                                                        <textarea
-                                                            className='change-input text-area'
-                                                            value={complaintText}
-                                                            onChange={(e) => setComplaintText(e.target.value)}
-                                                            placeholder="Введіть текст скарги"
-                                                            maxLength={255}
-                                                        />
-                                                        <div className='complaint-form-btns'>
-                                                            <button 
-                                                                className='main-btn complaint-btn' 
-                                                                onClick={() => handleComplaintSubmit(comment.id)}
-                                                            >
-                                                                Надіслати скаргу
-                                                            </button>
-                                                            <button 
-                                                                className='regular-btn complaint-btn' 
-                                                                onClick={() => setShowForm(false)}
-                                                            >
-                                                                Скасувати
-                                                            </button>
+                                                <div className='comment-right'>
+                                                    {userRole === 'admin' && (
+                                                        <div className='regular-btn complain-btn del-btn' onClick={() => handleCommentDelete(comment.id)}>
+                                                            <Eraser className='tooltip-icon' size={24} min={24} />
+                                                            <span className='tooltip-text'>Видалити коментар</span>
                                                         </div>
+                                                    )}
+                                                    
+                                                    <div 
+                                                        className='regular-btn complain-btn' 
+                                                        onClick={() => handleComplaintButtonClick(comment.id)}
+                                                    >
+                                                        <LuMegaphone className='tooltip-icon' size={24} min={24}/>
+                                                        <span className='tooltip-text'>Подати скаргу</span>
                                                     </div>
-                                                )}
+
+                                                    {showForm && selectedCommentId === comment.id && (
+                                                        <div className="complaint-form-container" ref={formRef}>
+                                                            <textarea
+                                                                className='change-input text-area'
+                                                                value={complaintText}
+                                                                onChange={(e) => setComplaintText(e.target.value)}
+                                                                placeholder="Введіть текст скарги"
+                                                                maxLength={255}
+                                                            />
+                                                            <div className='complaint-form-btns'>
+                                                                <button 
+                                                                    className='main-btn complaint-btn' 
+                                                                    onClick={() => handleComplaintSubmit(comment.id)}
+                                                                >
+                                                                    Надіслати скаргу
+                                                                </button>
+                                                                <button 
+                                                                    className='regular-btn complaint-btn' 
+                                                                    onClick={() => setShowForm(false)}
+                                                                >
+                                                                    Скасувати
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
+                                            <div className='comment-text'>{comment.text}</div>
                                         </div>
-                                        <div className='comment-text'>{comment.text}</div>
                                         <div className='comment-btn'>
                                             <button 
-                                                className='regular-btn' 
+                                                className='regular-btn answer-btn' 
                                                 onClick={() => handleReplyButtonClick(comment.id)}
                                             >
                                                 Відповісти
                                             </button>
-                                            <button 
-                                                className='like-btn'
-                                                onClick={() => handleCommentLike(comment.id)}
-                                            >
-                                                <LuThumbsUp 
-                                                    size={24}
-                                                    min={24}
-                                                />
-                                                <p>{comment.likes}</p>
-                                            </button>
-                                            
-                                            <button
-                                                className='dislike-btn'
-                                                onClick={() => handleCommentDislike(comment.id)}
-                                            >
-                                                <LuThumbsDown 
-                                                    size={24}
-                                                    min={24}
-                                                />
-                                                <p>{comment.dislikes}</p>
-                                            </button>
+
+                                            <div className='flex-gap'>
+                                                <button 
+                                                    className='like-btn'
+                                                    onClick={() => handleCommentLike(comment.id)}
+                                                >
+                                                    <LuThumbsUp
+                                                        className='ld-24'
+                                                        size={24}
+                                                        min={24}
+                                                    />
+                                                    <p>{comment.likes}</p>
+                                                </button>
+                                                
+                                                <button
+                                                    className='dislike-btn'
+                                                    onClick={() => handleCommentDislike(comment.id)}
+                                                >
+                                                    <LuThumbsDown 
+                                                        className='ld-24'
+                                                        size={24}
+                                                        min={24}
+                                                    />
+                                                    <p>{comment.dislikes}</p>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -415,84 +450,91 @@ const MovieComments = ({ movieId }) => {
                                                     )}
                                                 </div>
                                                 <div className='comment-body'>
-                                                    <div className='comment-top'>
-                                                        <div className='comment-left'>
-                                                            <p>{reply.username}</p>
-                                                            <div className='info-span'>{' | '}</div>
-                                                            <p className='info-span'>{formatDate(reply.created_at)}</p>
-                                                        </div>
-                                                        <div className='comment-right'>
-                                                            {userRole === 'admin' && (
-                                                                <div className='regular-btn complain-btn del-btn' onClick={() => handleCommentDelete(reply)}>
-                                                                    <Eraser size={24} min={24} />
-                                                                    <span className='tooltip-text'>Видалити коментар</span>
-                                                                </div>
-                                                            )}
-                                                            
-                                                            <div 
-                                                                className='regular-btn complain-btn' 
-                                                                onClick={() => handleComplaintButtonClick(reply.id)}
-                                                            >
-                                                                <LuMegaphone size={24} min={24}/>
-                                                                <span className='tooltip-text'>Подати скаргу</span>
+                                                    <div className='flex'>
+                                                        <div className='comment-top'>
+                                                            <div className='comment-left'>
+                                                                <p>{reply.username}</p>
+                                                                <div className='info-span'>{' | '}</div>
+                                                                <p className='info-span'>{formatDate(reply.created_at)}</p>
                                                             </div>
-
-                                                            {showForm && selectedCommentId === reply.id && (
-                                                                <div className="complaint-form-container" ref={formRef}>
-                                                                    <textarea
-                                                                        className='change-input text-area'
-                                                                        value={complaintText}
-                                                                        onChange={(e) => setComplaintText(e.target.value)}
-                                                                        placeholder="Введіть текст скарги"
-                                                                        maxLength={255}
-                                                                    />
-                                                                    <div className='complaint-form-btns'>
-                                                                        <button 
-                                                                            className='main-btn complaint-btn' 
-                                                                            onClick={() => handleComplaintSubmit(reply)}
-                                                                        >
-                                                                            Надіслати скаргу
-                                                                        </button>
-                                                                        <button 
-                                                                            className='regular-btn complaint-btn' 
-                                                                            onClick={() => setShowForm(false)}
-                                                                        >
-                                                                            Скасувати
-                                                                        </button>
+                                                            <div className='comment-right'>
+                                                                {userRole === 'admin' && (
+                                                                    <div className='regular-btn complain-btn del-btn' onClick={() => handleCommentDelete(reply)}>
+                                                                        <Eraser className='tooltip-icon' size={24} min={24} />
+                                                                        <span className='tooltip-text'>Видалити коментар</span>
                                                                     </div>
+                                                                )}
+                                                                
+                                                                <div 
+                                                                    className='regular-btn complain-btn' 
+                                                                    onClick={() => handleComplaintButtonClick(reply.id)}
+                                                                >
+                                                                    <LuMegaphone className='tooltip-icon' size={24} min={24}/>
+                                                                    <span className='tooltip-text'>Подати скаргу</span>
                                                                 </div>
-                                                            )}
+
+                                                                {showForm && selectedCommentId === reply.id && (
+                                                                    <div className="complaint-form-container" ref={formRef}>
+                                                                        <textarea
+                                                                            className='change-input text-area'
+                                                                            value={complaintText}
+                                                                            onChange={(e) => setComplaintText(e.target.value)}
+                                                                            placeholder="Введіть текст скарги"
+                                                                            maxLength={255}
+                                                                        />
+                                                                        <div className='complaint-form-btns'>
+                                                                            <button 
+                                                                                className='main-btn complaint-btn' 
+                                                                                onClick={() => handleComplaintSubmit(reply)}
+                                                                            >
+                                                                                Надіслати скаргу
+                                                                            </button>
+                                                                            <button 
+                                                                                className='regular-btn complaint-btn' 
+                                                                                onClick={() => setShowForm(false)}
+                                                                            >
+                                                                                Скасувати
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         </div>
+                                                        <div className='comment-text'>{reply.text}</div>
                                                     </div>
-                                                    <div className='comment-text'>{reply.text}</div>
                                                     <div className='comment-btn'>
                                                         <button 
-                                                            className='regular-btn' 
+                                                            className='regular-btn answer-btn' 
                                                             onClick={() => handleReplyButtonClick(comment.id)}
                                                         >
                                                             Відповісти
                                                         </button>
-                                                        <button 
-                                                            className='like-btn'
-                                                            onClick={() => handleCommentLike(reply)}
-                                                        >
-                                                            <LuThumbsUp 
-                                                                size={24}
-                                                                min={24}
-                                                            />
-                                                            <p>{reply.likes}</p>
-                                                        </button>
-                                                        
-                                                        <button
-                                                            className='dislike-btn'
-                                                            onClick={() => handleCommentDislike(reply)}
-                                                        >
-                                                            <LuThumbsDown 
-                                                                size={24}
-                                                                min={24}
-                                                            />
-                                                            <p>{reply.dislikes}</p>
-                                                        </button>
+
+                                                        <div className='flex-gap'>
+                                                            <button 
+                                                                className='like-btn'
+                                                                onClick={() => handleCommentLike(reply)}
+                                                            >
+                                                                <LuThumbsUp 
+                                                                    className='ld-24'
+                                                                    size={24}
+                                                                    min={24}
+                                                                />
+                                                                <p>{reply.likes}</p>
+                                                            </button>
+                                                            
+                                                            <button
+                                                                className='dislike-btn'
+                                                                onClick={() => handleCommentDislike(reply)}
+                                                            >
+                                                                <LuThumbsDown 
+                                                                    className='ld-24'
+                                                                    size={24}
+                                                                    min={24}
+                                                                />
+                                                                <p>{reply.dislikes}</p>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

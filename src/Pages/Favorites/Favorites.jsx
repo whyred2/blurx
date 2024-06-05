@@ -28,7 +28,7 @@ const FavoritesPage = () => {
                     return;
                 }
 
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/favorites/get', {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/favorites/get`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

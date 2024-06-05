@@ -17,7 +17,7 @@ const Movie = () => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://blurx-cd4ad36829cd.herokuapp.com/content/movies')
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/content/movies`)
             .then(response => {
                 setContent(response.data);
                 setLoading(false);

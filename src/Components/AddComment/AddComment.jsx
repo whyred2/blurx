@@ -30,7 +30,7 @@ const AddComment = ({ mediaId, type, commentId, reply, onCancelReply }) => {
             }
 
             const response = await axios.post(
-                `https://blurx-cd4ad36829cd.herokuapp.com/${endpoint}`,
+                `${process.env.REACT_APP_SERVER_URL}/${endpoint}`,
                 data,
                 {
                     headers: {

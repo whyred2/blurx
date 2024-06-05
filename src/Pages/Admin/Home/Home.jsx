@@ -62,7 +62,7 @@ const HomeAdmin = () => {
     useEffect(() => {
         const fetchAdminStats = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/admin/stats');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/stats`);
                 setAdminStats(response.data);
             } catch (error) {
                 console.error('Ошибка при загрузке статистики:', error);
@@ -74,7 +74,7 @@ const HomeAdmin = () => {
 
     const loadChatMessages = async () => {
         try {
-            const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/admin/admin-chat');
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/admin-chat`);
             setMessages(response.data);
         } catch (error) {
             console.error('Ошибка при загрузке сообщений чата:', error);
@@ -92,7 +92,7 @@ const HomeAdmin = () => {
             return;
         }
         try {
-            await axios.post('https://blurx-cd4ad36829cd.herokuapp.com/admin/send-message-chat', 
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/admin/send-message-chat`, 
             { text: newMessage },
             {
                 headers: {

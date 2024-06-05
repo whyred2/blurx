@@ -15,7 +15,7 @@ const FavoriteButton = ({ contentId, contentType }) => {
                 if (!token) {
                     return;
                 }
-                const response = await axios.get(`https://blurx-cd4ad36829cd.herokuapp.com/favorites/check/${contentId}`, {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/favorites/check/${contentId}`, {
                     params: {
                         item_id: contentId,
                         type: contentType,
@@ -45,7 +45,7 @@ const FavoriteButton = ({ contentId, contentType }) => {
             }
 
             if (isFavorite) {
-                const response = await axios.delete('https://blurx-cd4ad36829cd.herokuapp.com/favorites/remove', {
+                const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/favorites/remove`, {
                     data: { item_id: contentId, type: contentType },
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ const FavoriteButton = ({ contentId, contentType }) => {
                     setIsFavorite(false);
                 }
             } else {
-                const response = await axios.post('https://blurx-cd4ad36829cd.herokuapp.com/favorites/add', {
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/favorites/add`, {
                     item_id: contentId,
                     type: contentType,
                 }, {

@@ -14,7 +14,7 @@ const AllContent = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://blurx-cd4ad36829cd.herokuapp.com/content/movies-and-series');
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/content/movies-and-series`);
                 const { movies, series } = response.data;
 
                 const allContent = [

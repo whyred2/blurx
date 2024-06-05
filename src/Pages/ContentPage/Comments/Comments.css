@@ -26,7 +26,6 @@
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 3;
 }
 
 .comment-reply {
@@ -37,7 +36,8 @@
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 1100px;
+    width: calc(100vw - 149px);
+    max-width: 1100px;
 }
 
 .replies-container {
@@ -47,7 +47,7 @@
     position: relative;
     gap: 15px;
 }
-  
+
 .replies-line {
     position: absolute;
     top: -120px;
@@ -58,20 +58,18 @@
     border-bottom: 5px solid var(--black-6);
     border-bottom-left-radius: 20px;
 }
-  
+
 .avatar-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
+    min-width: 100px;
+    min-height: 100px;
 }
-  
+
 .comment-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-    width: 100%;
+    max-width: 100%;
 }
 
 .comment-top {
@@ -148,7 +146,10 @@
 
 .complain-btn {
     display: flex;
+    top: 0;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .del-btn:hover {
@@ -168,8 +169,9 @@
     border: 2px solid var(--border-color-dark);
     border-radius: 15px;
     top: 60px;
+    left: -10px;
     z-index: 5;
-    width: 100%;
+    min-width: 500px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -191,4 +193,214 @@
     min-height: 150px;
     max-height: 150px;
     resize:none;
+}
+
+.comment-avatar {
+    width: 100px;
+    min-width: 104px;
+    min-height: 104px;
+    height: 100px;
+    border: 2px solid var(--select-item-dark);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.mw-24 {
+    min-width: 24px;
+}
+
+.ld-24 {
+    min-width: 24px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flex-gap {
+    display: flex;
+    gap: 5px;
+}
+
+@media (max-width: 1080px) {
+    .tooltip-text {
+        display: none;
+    }
+
+    .complaint-form-container {
+        left: -352px;
+    }
+
+    .replies-line {
+        left: -45px;
+    }
+} 
+
+@media (max-width: 768px) {
+    .comment, .comment-reply {
+        min-height: 160px;
+    }
+
+    .comment-reply {
+        .comment-body {
+            max-width: calc(100vw - 162px);
+        }
+    }
+
+    .comments-list {
+        font-size: 16px;
+    }
+
+    .comment-avatar {
+        width: 75px;
+        height: 75px;
+        min-width: 75px;
+        min-height: 75px;
+        border: none;
+        z-index: 0;
+    }
+
+    .avatar-image {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .comment-top, .comment-left {
+        gap: 5px;
+        justify-content: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .complaint-form-container {
+        min-width: 400px;
+        left: 0;
+        top: 0;
+        gap: 10px;
+    }
+    
+    .comment-rating {
+        gap: 5px;
+    }
+
+    .comment-right {
+        flex-direction: column;
+        right: auto;
+        top: auto;
+        left: 15px;
+        bottom: 15px;
+    }
+
+    .comment-btn {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .complain-btn {
+        width: 75px;
+        height: 46px;
+    }
+
+    .tooltip-icon {
+        width: 20px;
+    }
+    
+    .tooltip-text {
+        display: none;
+    }
+
+    .del-btn {
+        display: none;
+    }
+
+    .complaint-form-btns {
+        gap: 10px;
+    }
+
+    .complaint-btn {
+        padding: 0 10px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .replies-line {
+        left: -55px;
+        top: -25px;
+        height: 70px;
+    }
+
+    .flex {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comment, .comment-reply {
+        min-height: auto;
+    }
+
+    .comment-reply {
+        width: calc(100vw - 67px);
+    }
+    
+    .replies-line {
+        left: -35px;
+    }
+
+    .comment-avatar {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .avatar-image {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .comment-body {
+        gap: 5px;
+    }
+
+    .complain-btn {
+        width: 50px;
+    }
+
+    .complain-btn, .answer-btn {
+        height: 40px;
+    }
+    
+    .complaint-form-container {
+        min-width: calc(101vw - 71px);
+        left: -15px;
+        top: 0;
+    }
+    
+    .answer-btn {
+        padding: 0 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .like-btn, .dislike-btn {
+        height: 40px;
+        padding: 0 10px;
+        gap: 5px;
+    }
+
+    .ld-24 {
+        min-width: 20px;
+    }
+    
+    .comment-btn {
+        gap: 5px;
+    }
 }

@@ -18,7 +18,7 @@ const Series = () => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://blurx-cd4ad36829cd.herokuapp.com/content/series')
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/content/series`)
             .then(response => {
                 setContent(response.data);
                 setLoading(false);
