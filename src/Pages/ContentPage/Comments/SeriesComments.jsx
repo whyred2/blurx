@@ -11,23 +11,6 @@ import { Eraser } from 'lucide-react';
 
 import AddComment from '../../../Components/AddComment/AddComment';
 
-const adjustRepliesLineHeight = () => {
-    const comments = document.querySelectorAll('.comment-item');
-    
-    comments.forEach(comment => {
-        const repliesLine = comment.querySelector('.replies-line');
-        const commentReply = comment.querySelector('.comment-reply');
-        const repliesContainer = comment.querySelector('.replies-container');
-        
-        if (repliesLine && repliesContainer && commentReply) {
-            const repliesHeight = repliesContainer.offsetHeight;
-
-            repliesLine.style.height = `${repliesHeight - 90}px`;
-            repliesLine.style.top = `${-repliesHeight + 135}px`;
-        }
-    });
-};
-
 const MovieComments = ({ seriesId }) => {
     const mediaId = seriesId;
     const [authenticated, setAuthenticated] = useState(false);
@@ -293,15 +276,40 @@ const MovieComments = ({ seriesId }) => {
         }
     };
 
-    useEffect(() => {
-        setTimeout(() => {    
-            adjustRepliesLineHeight();
-            window.addEventListener('resize', adjustRepliesLineHeight);
+    const adjustRepliesLineHeight = () => {
+        const commentContainers = document.querySelectorAll('.comment-item');
+    
+        commentContainers.forEach(commentContainer => {
+            const repliesContainer = commentContainer.querySelector('.replies-container');
             
-            return () => {
-                window.removeEventListener('resize', adjustRepliesLineHeight);
-            };
-        }, 1500);
+            if (!repliesContainer) return;
+    
+            const replies = Array.from(repliesContainer.children); // Преобразуем NodeList в массив
+    
+            replies.forEach(reply => {
+                const replyHeight = reply.getBoundingClientRect().height;
+    
+                const repliesLine = reply.querySelector('.replies-line');
+                if (repliesLine) {
+                    repliesLine.style.height = `${replyHeight + 30}px`;
+                }
+            });
+        });
+    };
+    
+    
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            adjustRepliesLineHeight();
+        }, 500);
+        
+        window.addEventListener('resize', adjustRepliesLineHeight);
+        
+        // Очистка интервала и обработчика события при размонтировании компонента
+        return () => {
+            clearInterval(intervalId);
+            window.removeEventListener('resize', adjustRepliesLineHeight);
+        };
     }, []);
 
     return (
@@ -436,8 +444,6 @@ const MovieComments = ({ seriesId }) => {
                                     <div className="replies-container">
                                         {comment.replies.map((reply, replyIndex) => (
                                             <div key={replyIndex} className="comment-reply">
-                                                <div className='replies-line'></div>
-
                                                 <div className='comment-avatar'>
                                                     {reply.profile_image ? (
                                                         <><img className='avatar-image' src={reply.profile_image} alt='Аватар' /></>   
@@ -452,6 +458,7 @@ const MovieComments = ({ seriesId }) => {
                                                     )}
                                                 </div>
                                                 <div className='comment-body'>
+                                                    <div className='replies-line'></div>
                                                     <div className='flex'>
                                                         <div className='comment-top'>
                                                             <div className='comment-left'>
