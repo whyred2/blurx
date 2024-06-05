@@ -23,7 +23,9 @@ router.patch('/user/:id/update-email', authController.updateEmail);
 router.patch('/user/:id/update-password', authController.updatePassword);
 router.patch('/user/:id/update-role', authController.updateRole);
 
-router.post('/change-image', upload.single('userImage'), authController.changeImage);
+router.post('/change-image', upload.single('avatar'), authenticateToken, authController.changeImage);
 router.patch('/save-user-image', authController.saveImage);
+
+router.delete('/delete-user-image', authenticateToken, authController.deleteUserImage);
 
 module.exports = router;

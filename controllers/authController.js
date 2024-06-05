@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const userModel = require('../modules/userModule');
 const AWS = require('aws-sdk');
+const db = require('../db');
 require('dotenv').config();
 
 const s3 = new AWS.S3({
@@ -24,6 +25,8 @@ const generateToken = (user) => {
 const changeImage = async (req, res) => {
   try {
     const file = req.file;
+    const userId = req.user.userId;
+
     const uploadParams = {
       Bucket: 'imagesbucketfordiplom/images/avatars',
       Key: `${Date.now()}-${file.originalname}`,
@@ -32,11 +35,26 @@ const changeImage = async (req, res) => {
     };
 
     const uploadResult = await s3.upload(uploadParams).promise();
+    await db('users')
+      .where({ id: userId }) // Ищем запись с заданным id
+      .update({ profile_image: uploadResult.Location });
 
     res.status(200).json({ success: true, userImageUrl: uploadResult.Location });
   } catch (error) {
     console.error('Ошибка при загрузке аватара в S3:', error);
     res.status(500).json({ success: false, message: 'Ошибка сервера' });
+  }
+};
+
+const deleteUserImage = async (req, res) => {
+  const userId = req.user.userId;
+  try {
+    await db('users').where({'id': userId}).update({'profile_image': ''});
+
+    res.status(200).json({ message: 'Аватар успешно удален' });
+  } catch (error) {
+    console.error('Ошибка при удалении аватара:', error);
+    res.status(500).json({ success: false, message: 'Ошибка сервера при удалении аватара' });
   }
 };
 
@@ -237,5 +255,7 @@ module.exports = {
       console.error('Ошибка при получени пользователя:', error.message);
       res.status(500).json({ message: 'Ошибка сервера' });
     }
-  }
+  },
+
+  deleteUserImage,
 };

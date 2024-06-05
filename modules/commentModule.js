@@ -34,7 +34,12 @@ const getComments = async (table, mediaId) => {
         const media = await getMediaByTitle(table, mediaId);
         
         const comments = await db(`${table}comments`)
-            .select(`${table}comments.*`, 'users.username', db.raw(`COALESCE(${table}ratings.rating, 0) as rating`))
+            .select(
+                `${table}comments.*`, 
+                'users.username', 
+                'users.profile_image', // Добавление profile_image
+                db.raw(`COALESCE(${table}ratings.rating, 0) as rating`)
+            )
             .where(`${table}comments.${table}_id`, media.id)
             .leftJoin(`${table}ratings`, function () {
                 this.on(`${table}comments.user_id`, '=', `${table}ratings.user_id`)
@@ -42,11 +47,17 @@ const getComments = async (table, mediaId) => {
             })
             .innerJoin('users', `${table}comments.user_id`, 'users.id');
 
+
             const replies = await db(`${table}comment_replies`)
-            .select(`${table}comment_replies.*`, 'users.username')
-            .leftJoin('users', `${table}comment_replies.user_id`, 'users.id')
-            .whereIn('comment_id', comments.map(comment => comment.id))
-            .orderBy('created_at', 'desc');
+                .select(
+                    `${table}comment_replies.*`, 
+                    'users.username', 
+                    'users.profile_image' // Добавление profile_image
+                )
+                .leftJoin('users', `${table}comment_replies.user_id`, 'users.id')
+                .whereIn('comment_id', comments.map(comment => comment.id))
+                .orderBy('created_at', 'desc');
+        
 
         const repliesByCommentId = replies.reduce((acc, reply) => {
             acc[reply.comment_id] = acc[reply.comment_id] || [];
