@@ -4,7 +4,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import ReactPlayer from 'react-player';
 import { toast } from 'react-toastify';
-
+import { Helmet } from "react-helmet";
 import './ContentPage.css';
 import MovieComments from './Comments/MovieComments.jsx';
 import Auth from '../Home/AuthContainer/Auth.jsx';
@@ -163,6 +163,10 @@ const MoviePage = () => {
     
     return (
         <div className='content-main'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{movie.movie.title} - BLURX</title>
+            </Helmet>
             <div className='form-container'>
                 <div className='form content-conteiner'>
                     <div className='cover'>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
 
 import './Register.css';
 
@@ -87,6 +88,10 @@ const Register = () => {
 
     return (
         <div className='register-container'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Реєстрація - BLURX</title>
+            </Helmet>
             <header className='header-auth'>
                 <div className='logo'>
                     <Link to='/'>

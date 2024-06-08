@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 import "./Users.css";
 import { Menu, Table } from 'lucide-react';
@@ -64,7 +65,7 @@ const Users = () => {
   }, [usersStats]);
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
       undefined,
       options
@@ -253,6 +254,10 @@ const Users = () => {
 
   return (
     <div className="admin-conteiner">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Користувачі - Адмін-панель - BLURX</title>
+      </Helmet>
       <div className={`admin-component ${statsVisible ? "open" : ""}`}>
         <h2
           className="admin-main-title admin-text-icon"
@@ -307,11 +312,10 @@ const Users = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Имя пользователя</th>
+                <th>Ім'я користувача</th>
                 <th>Email</th>
-                <th>Пароль</th>
-                <th>Роль</th>
-                <th>Дата регистрации</th>
+                  <th>Роль</th>
+                <th>Дата реєстрації</th>
               </tr>
             </thead>
             <tbody>
@@ -320,7 +324,6 @@ const Users = () => {
                   <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.password}</td>
                   <td>{user.role}</td>
                   <td>{formatDate(user.register_date)}</td>
                 </tr>
@@ -338,11 +341,10 @@ const Users = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Имя пользователя</th>
+                  <th>Ім'я користувача</th>
                   <th>Email</th>
-                  <th>Пароль</th>
                   <th>Роль</th>
-                  <th>Дата регистрации</th>
+                  <th>Дата реєстрації</th>
                 </tr>
               </thead>
               <tbody>
@@ -350,7 +352,6 @@ const Users = () => {
                   <td>{foundUser.id}</td>
                   <td>{foundUser.username}</td>
                   <td>{foundUser.email}</td>
-                  <td className="password-cell">{foundUser.password}</td>
                   <td>{foundUser.role}</td>
                   <td>{formatDate(foundUser.register_date)}</td>
                 </tr>

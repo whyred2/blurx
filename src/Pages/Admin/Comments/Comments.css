@@ -106,7 +106,7 @@
 
 .admin-component {
     gap: 0px;
-    transition: gap 0.3s ease-out;
+    transition: gap 0.3s ease-out !important;
 }
 
 .admin-component.open {

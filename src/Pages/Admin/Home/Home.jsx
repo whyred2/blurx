@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
 
 import { Menu, MessageSquare, SendHorizontal } from 'lucide-react';
 import './Home.css';
@@ -46,18 +47,22 @@ const HomeAdmin = () => {
 
     const toggleChatVisibility = () => {
         setChatVisible(!chatVisible);
-        setContentHeightChat(chatVisible ? '0px' : `${contentRefStats.current.scrollHeight + 600}px`);
+        if (!chatVisible) {
+            if (messages.length > 0) {
+                setContentHeightChat(`${contentRefStats.current.scrollHeight + 600}px`);
+                loadChatMessages();
+            } else {
+                setContentHeightChat(`${contentRefStats.current.scrollHeight + 80}px`);
+            }
+        } else {
+            setContentHeightChat('0px');
+        }
     };
+    
 
     useEffect(() => {
         loadChatMessages();
-    }, [messages]);
-
-    useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [messages]);
+    }, []);
 
     useEffect(() => {
         const fetchAdminStats = async () => {
@@ -76,10 +81,12 @@ const HomeAdmin = () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/admin-chat`);
             setMessages(response.data);
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
         } catch (error) {
             console.error('Ошибка при загрузке сообщений чата:', error);
         }
     };
+    
 
     const handleSendMessage = async () => {
         const token = localStorage.getItem('token');
@@ -106,9 +113,46 @@ const HomeAdmin = () => {
         }
     };
 
+    const formatDate = (dateString) => {
+        const currentDate = new Date();
+        const commentDate = new Date(dateString);
+        const timeDifference = currentDate - commentDate;
+        
+        const minute = 60 * 1000;
+        const hour = minute * 60;
+        const day = hour * 24;
+    
+        if (timeDifference < minute) {
+            const secondsAgo = Math.floor(timeDifference / 1000);
+            return `${secondsAgo} секунд${pluralize(secondsAgo, 'а', 'и', '')} тому`;
+        } else if (timeDifference < hour) {
+            const minutesAgo = Math.floor(timeDifference / minute);
+            return `${minutesAgo} хвилин${pluralize(minutesAgo, 'а', 'и', '')} тому`;
+        } else if (timeDifference < day) {
+            const hoursAgo = Math.floor(timeDifference / hour);
+            return `${hoursAgo} годин${pluralize(hoursAgo, 'а', 'и', '')} тому`;
+        } else {
+            const daysAgo = Math.floor(timeDifference / day);
+            return `${daysAgo} днів тому`;
+        }
+    };
+
+    const pluralize = (number, form1, form2, form3) => {
+        if (number % 10 === 1 && number % 100 !== 11) {
+            return form1;
+        } else if ([2, 3, 4].includes(number % 10) && ![12, 13, 14].includes(number % 100)) {
+            return form2;
+        } else {
+            return form3;
+        }
+    };
+
     return (
         <div className="admin-conteiner">
-
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Головна - Адмін-панель - BLURX</title>
+            </Helmet>
             <div className={`admin-component ${statsVisible ? 'open' : ''}`}>
                 <h2 className='admin-main-title admin-text-icon' onClick={toggleStatsVisibility}>
                     <Menu className={`admin-icon ${statsVisible ? 'clicked' : ''}`} size={40} />
@@ -159,23 +203,22 @@ const HomeAdmin = () => {
                 >
                     <div className='chat-messages'>
                         <div className='messages-list'>
-                        {messages.length > 0 ? (
-                            <>
-                                {messages.map(message => (
-                                    <div key={message.id} className='message'>
-                                        <div className='message-top'>
-                                            <div className='admin-item-span'>{message.user_username}</div>
-                                            <div className='admin-item-span'>{message.created_at}</div>
+                            {messages.length > 0 ? (
+                                <>
+                                    {messages.map(message => (
+                                        <div key={message.id} className='message'>
+                                            <div className='message-top'>
+                                                <div className='admin-item-span'>{message.user_username}</div>
+                                                <div className='admin-item-span'>{formatDate(message.created_at)}</div>
+                                            </div>
+                                            <div className='comment-text'>{message.text}</div>
                                         </div>
-                                        <div className='comment-text'>{message.text}</div>
-                                    </div>
-                                ))}
-                                <div ref={messagesEndRef} />
-                            </>
-                        ) : (
-                            <div className='message'>Повідомлень нема</div>
-                        )}
-                            
+                                    ))}
+                                    <div ref={messagesEndRef} />
+                                </>
+                            ) : (
+                                <div className='message'>Повідомлень нема</div>
+                            )}
                         </div>
                     </div>
                     <div className="chat-bottom">

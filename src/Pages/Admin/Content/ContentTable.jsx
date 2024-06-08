@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTable, useSortBy, usePagination, useFilters, useResizeColumns, useFlexLayout } from 'react-table';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -270,7 +271,6 @@ const AdminTables = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/content`);
-        console.log(response.data)
         const movies = response.data.content.movies.map(movie => ({ ...movie, contentType: 'movie' }));
         const series = response.data.content.series.map(series => ({ ...series, contentType: 'series' }));
         setMovieData(movies);
@@ -323,7 +323,7 @@ const AdminTables = () => {
         Header: 'Дії',
         accessor: 'actions',
         Cell: ({ row }) => (
-          <button className='delete-btn' onClick={() => handleDelete(row.original.id)}>Видалити</button>
+          <button className='delete-btn' onClick={() => handleDelete(row.original.id, 'movie')}>Видалити</button>
         ),
       },
     ],
@@ -377,22 +377,32 @@ const AdminTables = () => {
             Header: 'Дії',
             accessor: 'actions',
             Cell: ({ row }) => (
-            <button onClick={() => handleDelete(row.original.id)}>Видалити</button>
+              <button className='delete-btn' onClick={() => handleDelete(row.original.id, 'series')}>Видалити</button>
             ),
         },
     ],
     []
   );
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, contentType) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/admin/content/${id}`);
-      setMovieData(movieData.filter(movie => movie.id !== id));
-      setSeriesData(seriesData.filter(series => series.id !== id));
+      console.log()
+
+        await axios.delete(`${process.env.REACT_APP_SERVER_URL}/admin/content/${id}`, {
+          contentType
+        });
+        console.log(contentType)
+
+        if (contentType === 'movie') {
+          setMovieData(movieData.filter(movie => movie.id !== id));
+        } else if (contentType === 'series') {
+          setSeriesData(seriesData.filter(series => series.id !== id));
+        }
     } catch (error) {
-      console.error('Ошибка при удалении контента:', error);
+        console.error('Помилка при видаленні контенту:', error);
     }
-  };
+};
+
 
   return (
     <div className="admin-content">
@@ -416,6 +426,7 @@ const AdminTables = () => {
           <AdminTable columns={seriesColumns} data={seriesData} />
         </div>
       </div>
+      <Link to='/add-content' className='main-btn'>Додати фільм/серіал</Link>
     </div>
   );
 };

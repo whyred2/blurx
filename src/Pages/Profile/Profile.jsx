@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { Helmet } from "react-helmet";
 
 import AvatarUpload from './AvatarUpload';
 import './Profile.css';
@@ -18,10 +18,6 @@ const Profile = () => {
   const [favorites] = useState([]);
 
   const [userImage, setUserImage] = useState(null);
-  const uploadButtonRef = useRef(null);
-
-  
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +28,6 @@ const Profile = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-
         setUserInfo(response.data);
         setUserImage(response.data.profile_image);
       } catch (error) {
@@ -79,7 +74,7 @@ const Profile = () => {
         }
       );
   
-      toast.success('Пароль успішно змінено!');
+      toast.success('Пароль успішно змінено');
       setIsChangingPassword(false);
     } catch (error) {
       console.error('Помилка при зміні пароля:', error);
@@ -104,84 +99,12 @@ const Profile = () => {
         username: newUsername,
       }));
 
-      toast.success('Имя пользователя успешно обновлено!');
+      toast.success("Ім'я користувача успішно оновлено");
       setIsEditingUsername(false);
     } catch (error) {
       console.error('Ошибка при обновлении username:', error);
     }
     setIsEditingUsername(false);
-  };
-
-  const handleImageButtonClick = () => {
-    if (uploadButtonRef.current) {
-      uploadButtonRef.current.click();
-    }
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log("Выбранное изображение:", file);
-    console.log('handleImageChange function called');
-  
-    uploadUserImage(file);
-  };
-  
-  const uploadUserImage = async (file) => {
-    try {
-      const formData = new FormData();
-      formData.append("userImage", file);
-  
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/auth/change-image`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-  
-      saveUserImage(response.data.userImageUrl);
-      console.log("Аватар успешно загружен:", response.data.userImageUrl);
-      setUserImage(response.data.userImageUrl);
-      // Обновляем токен, если он был изменен на сервере
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-      }
-    } catch (error) {
-      console.error("Ошибка при загрузке обложки:", error);
-    }
-  };
-  
-  const saveUserImage = async (userImageUrl) => {
-    try {
-      const token = localStorage.getItem('token');
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.userId;
-  
-      console.log('userId:', userId); // Логируем userId
-      console.log('userImageUrl:', userImageUrl); // Логируем userImageUrl
-  
-      const response = await axios.patch(
-        `${process.env.REACT_APP_SERVER_URL}/auth/save-user-image`,
-        { userId, userImageUrl }, // Передаем userId и userImageUrl на сервер
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-        
-      
-      console.log(response.data);
-      setUserInfo((prevUserInfo) => ({
-        ...prevUserInfo,
-        profile_image: userImageUrl,
-      }));
-      } catch (error) {
-      console.error('Ошибка при обновлении URL изображения пользователя:', error);
-    }
   };
 
   const handleDeleteUserImage = async () => {
@@ -194,7 +117,9 @@ const Profile = () => {
         }
       );
 
-      toast.success("Аватар успешно удален");
+      toast.success("Аватар успішно видалено");
+      
+      setTimeout(() => {window.location.reload(true);}, 500);
     } catch (error) {
       console.error("Ошибка при удалении изображения:", error);
     }
@@ -202,6 +127,10 @@ const Profile = () => {
 
   return (
     <main className="profile">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Профіль - BLURX</title>
+      </Helmet>
       <section className="profile-section">
         <header className="profile-header">
           <h1 className="main-title">Профіль</h1>

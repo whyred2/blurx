@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 
 import './Comments.css';
 import { Menu, List, ListX } from 'lucide-react';
@@ -229,7 +230,10 @@ const Comments = () => {
 
     return (
         <div className='admin-conteiner'>
-
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Коментарі - Адмін-панель - BLURX</title>
+            </Helmet>
             <div className={`admin-component ${statsVisible ? 'open' : ''}`}>
                 <h2 className='admin-main-title admin-text-icon' onClick={toggleStatsVisibility}>
                     <Menu className={`admin-icon ${statsVisible ? 'clicked' : ''}`} size={40} />

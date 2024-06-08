@@ -1,10 +1,15 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 
 import './About.css';
 
 const About = () => {
     return (
         <div className='about-container'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Про нас - BLURX</title>
+            </Helmet>
             <h1 className='about-heading'>Про нас</h1>
             <div className='about-info'>
                 <h1 className='about-title'>

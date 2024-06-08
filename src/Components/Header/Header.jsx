@@ -70,7 +70,7 @@ const Header = ({ isDarkTheme, toggleTheme }) => {
                 <ul className='header-menu'>
                     <li className='header-menu-item'><Link to='/movies'>Фільми</Link></li>
                     <li className='header-menu-item'><Link to='/series'>Серіали</Link></li>
-                    <li className='header-menu-item'><Link to='/about'>О нас</Link></li>
+                    <li className='header-menu-item'><Link to='/about'>Про нас</Link></li>
                 </ul>
             </nav>
 

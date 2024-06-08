@@ -17,11 +17,10 @@ const AvatarUpload = () => {
         const fetchProfileData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
                 });
-                console.log(response.data.profile_image)
                 setUserImage(response.data.profile_image);
             } catch (error) {
                 console.error('Ошибка при получении изображения пользователя:', error);
@@ -54,8 +53,11 @@ const AvatarUpload = () => {
                     }
                 );
                 console.log(response.data);
-                toast.success("Аватар успішно завантажено. Авторизуйтесь знову, щоб побачити зміни.");
+                toast.success("Аватар успішно завантажено");
                 setShowForm(false);
+
+                setTimeout(() => {window.location.reload(true);}, 500);
+                
             } catch (error) {
                 console.error("Error uploading avatar:", error);
                 toast.error("Ошибка загрузки аватара");

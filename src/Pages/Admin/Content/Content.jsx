@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ContentTable from './ContentTable';
+import { Helmet } from "react-helmet";
 
 import './Content.css'
 import { Menu, Table } from 'lucide-react';
@@ -28,7 +29,7 @@ const Content = () => {
 
     const toggleTableVisibility = () => {
         setTableVisible(!tableVisible);
-        setContentHeightTable(tableVisible ? '0px' : `850px`);
+        setContentHeightTable(tableVisible ? '0px' : `900px`);
     };
 
     useEffect(() => {
@@ -46,6 +47,10 @@ const Content = () => {
 
     return (
         <div className='admin-conteiner'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Контент - Адмін-панель - BLURX</title>
+            </Helmet>
             <div className={`admin-component ${statsVisible ? 'open' : ''}`}>
                 <h2 className='admin-main-title admin-text-icon' onClick={toggleStatsVisibility}>
                     <Menu className={`admin-icon ${statsVisible ? 'clicked' : ''}`} size={40} />
@@ -87,10 +92,6 @@ const Content = () => {
                 >
                     <ContentTable />
                 </div>
-            </div>
-
-            <div className='admin-component'>
-                <Link to='/add-content' className='main-btn'>Додати фільм/серіал</Link>
             </div>
         </div>
     );

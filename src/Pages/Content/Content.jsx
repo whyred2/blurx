@@ -5,6 +5,7 @@ import { LuClapperboard, LuChevronUp, LuChevronDown, LuArrowDownNarrowWide, LuAr
 import { TriangleAlert } from 'lucide-react';
 import '../../Components/Filter/Filter.jsx';
 import './Content.css';
+import { Helmet } from "react-helmet";
 
 import Filter from '../../Components/Filter/Filter.jsx';
 import Loading from '../../Components/Loader/Loader.jsx';
@@ -73,9 +74,18 @@ const Content = ({ contentType }) => {
 
     return (
         <div className='content' >
+            <Helmet>
+                <meta charSet="utf-8" />
+                {contentType === 'movies' ? (
+                    <title>Фільми - BLURX</title>
+                ) : (
+                    <title>Серіали - BLURX</title>
+                )}
+            </Helmet>
             <div className='content-main' >
                 {contentType === 'movies' && (
                     <>
+                        
                         <div className='content-header-title'>
                             <div className='sort'>
                                 <div className='content-icon'>

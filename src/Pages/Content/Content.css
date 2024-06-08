@@ -1,5 +1,4 @@
 .content-movie {
-    position: relative;
     display: flex !important;
     flex-direction: column;
     align-items: center;
@@ -48,13 +47,15 @@
     align-items: center;
     margin: -30px -30px 0 -30px;
     padding: 15px;
-    border-radius: 15px 15px 0 0;
+    border-radius: 25px 25px 0 0;
     justify-content: space-between;
     height: 80px;
 
     background-color: var(--black-header);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color-dark);
+
+    z-index: 10;
 }
 
 .sort {

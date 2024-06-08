@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet } from "react-helmet";
 
 import './Favorites.css';
 import Loading from '../../Components/Loader/Loader';
@@ -93,10 +94,15 @@ const FavoritesPage = () => {
 
     return (
         <div className='content-main' id='cm-1'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Обране - BLURX</title>
+            </Helmet>
             {isLoading ? (
                 <Loading />
             ) : (
                 <>
+                
                     <div className='content-header-title' id='cht-1'>
                         <div className='sort'>
                             <div className='content-icon'>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
 
 import './Login.css';
 
@@ -69,6 +70,10 @@ const Login = () => {
 
     return (
         <div className='login-container'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Вхід - BLURX</title>
+            </Helmet>
             <header className='header-auth'>
                 <div className='logo'>
                     <Link to='/'>
