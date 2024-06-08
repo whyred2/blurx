@@ -3,7 +3,10 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../modules/userModule');
 const AWS = require('aws-sdk');
 const db = require('../db');
+const userModule = require('../modules/userModule');
 require('dotenv').config();
+
+const refreshTokens = [];
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -11,7 +14,6 @@ const s3 = new AWS.S3({
 });
 
 const generateToken = (user) => {
-  console.log('DATA TOKEN:', user);
   return jwt.sign({ 
     userId: user.id, 
     username: user.username, 
@@ -164,7 +166,6 @@ module.exports = {
     try {
       const userId = req.params.id;
       const newUsername = req.body.newUsername;
-      console.log(userId, newUsername)
       const updatedUser = await userModel.updateUsername(userId, newUsername);
 
       res.json({ message: 'Имя пользователя успешно обновлено', user: updatedUser });
@@ -206,11 +207,7 @@ module.exports = {
     try {
       const userId = req.params.id;
       const { newRole } = req.body;
-
-      console.log('Received new role:', newRole);
-
       const result = await userModel.updateRole(userId, newRole);
-
 
       res.json({ message: result });
     } catch (error) {
@@ -241,16 +238,11 @@ module.exports = {
   },
 
   getUser: async(req, res) => {
-    const user = req.user;
-    const formattedDate = new Date(user.register_date).toLocaleDateString();
+    const userId = req.user.userId;
     try {
-      res.json({
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        register_date: formattedDate,
-        profile_image: user.profile_image,
-      });    
+      const result = await userModel.getUserById(userId);
+      
+      res.json(result);    
     } catch (error) {
       console.error('Ошибка при получени пользователя:', error.message);
       res.status(500).json({ message: 'Ошибка сервера' });

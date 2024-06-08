@@ -13,11 +13,21 @@ const getChatMessages = async (req, res) => {
     }
 };
 
+const deleteChatMessages = async (req, res) => {
+    try {
+        await db('admin_chat').del();
+        
+        res.status(200).json({ message: 'Все сообщения чата успешно удалены' });
+    } catch (error) {
+        console.error('Ошибка при удалении сообщений чата:', error);
+        res.status(500).json({ message: 'Ошибка сервера при удалении сообщений чата' });
+    }
+};
+
 const sendMessageToChat = async (req, res) => {
     const { text } = req.body;
     const userId = req.user.userId;
     try {
-        console.log(text, userId)
         await db('admin_chat').insert({ 'user_id': userId, 'text': text });
 
         res.status(200);
@@ -199,6 +209,9 @@ const updateContent = async (req, res) => {
     const columnNames = {
         title: 'title',
         title_english: 'title_english',
+        cover_image: 'cover_image',
+        trailer_url: 'trailer_url',
+        description: 'description',
         release_date: 'release_date',
         release_country: 'release_country',
         age_rating: 'age_rating',
@@ -211,10 +224,7 @@ const updateContent = async (req, res) => {
     if (!tableNames[contentType] || !columnNames[columnId]) {
         return res.status(400).json({ message: 'Неверное имя столбца или тип контента' });
     }
-
     try {
-        
-
         const result = await db(tableNames[contentType])
         .update({ [columnNames[columnId]]: value })
         .where({ id: rowIndex });
@@ -229,6 +239,25 @@ const updateContent = async (req, res) => {
         res.status(500).json({ message: 'Ошибка сервера при обновлении контента' });
     }
 };
+
+const deleteContent = async (req, res) => {
+    const { contentId } = req.params;
+    console.log(contentId, )
+    const tableNames = {
+        movie: 'movies',
+        series: 'series',
+    }
+
+    try {
+        await db('movies').where({ 'id': contentId }).del();
+
+        res.status(200).json({ message: 'Контент успішно видалено' });
+    } catch (error) {
+        console.error('Помилка при видаленні контенту:', error);
+        res.status(500).json({ message: 'Помилка сервера при видаленні контенту' });
+    }
+};
+
 
 const getUsersStats = async (req, res) => {
     try {
@@ -263,6 +292,7 @@ const getUsersStats = async (req, res) => {
 
 module.exports = {
     getChatMessages,
+    deleteChatMessages,
     sendMessageToChat,
 
     deleteComment,
@@ -274,4 +304,5 @@ module.exports = {
 
     getContent,
     updateContent,
+    deleteContent,
 };

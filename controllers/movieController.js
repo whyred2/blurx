@@ -3,7 +3,6 @@ const moviesModule = require('../modules/favoritesModule.js');
 
 const addMovie = async (req, res) => {
     try {
-        console.log('asdasd')
         const {
             title,
             title_english,

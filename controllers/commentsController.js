@@ -131,7 +131,6 @@ const addCommentReply = async (req, res) => {
     const userId = req.user.userId;
     const mediaType = req.path.includes('movie') ? 'movie' : 'series';
     try {
-        console.log(text, commentId, userId, mediaType)
         
         const comments = mediaType === 'movie' 
             ? await commentModule.addMovieCommentReply(commentId, userId, text)
@@ -161,7 +160,6 @@ const likeComment = async(req, res) => {
     const { commentId } = req.params;
     const mediaType = req.path.includes('movie') ? 'movie' : 'series';
     const userId = req.user.userId;
-    console.log(commentId)
     try {
         const result = mediaType === 'movie' 
             ? await commentModule.addMovieLike(commentId, userId)
@@ -177,7 +175,6 @@ const likeCommentReply = async(req, res) => {
     const { commentId } = req.params;
     const mediaType = req.path.includes('movie') ? 'movie' : 'series';
     const userId = req.user.userId;
-    console.log(commentId)
     try {
         const result = mediaType === 'movie' 
             ? await commentModule.addMovieLikeReply(commentId, userId)
@@ -208,7 +205,6 @@ const dislikeCommentReply = async(req, res) => {
     const { commentId } = req.params;
     const mediaType = req.path.includes('movie') ? 'movie' : 'series';
     const userId = req.user.userId;
-    console.log(commentId)
     try {
         const result = mediaType === 'movie' 
             ? await commentModule.addMovieDislikeReply(commentId, userId)

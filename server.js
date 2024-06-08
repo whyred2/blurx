@@ -8,6 +8,8 @@ const favoritesRoutes = require('./routes/favoritesRoutes.js');
 const adminRoutes = require('./routes/adminRoutes.js');
 const { authenticateToken } = require('./middleware/authenticateToken.js');
 const userModel = require('./modules/userModule.js');
+const cron = require('node-cron');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -26,6 +28,15 @@ app.use('/content', contentRoutes);
 app.use('/comment', commentsRoutes);
 app.use('/favorites', favoritesRoutes);
 app.use('/admin', adminRoutes);
+
+cron.schedule('0 */12 * * *', async () => {
+    try {
+      const response = await axios.delete(`http://localhost:3001/admin/admin-chat/delete`);
+      console.log(response.data.message);
+  } catch (error) {
+      console.error('Error running scheduled task:', error);
+  }
+});
 
 app.patch('/profile/update-username', authenticateToken, async (req, res) => {
   const userId = req.user.userId;

@@ -36,16 +36,13 @@ const removeCover = async (req, res) => {
     const { imageUrl } = req.body;
     
     const imageKey = getImageKey(imageUrl);
-    console.log('Удаляем обложку с ключом:', imageKey);
     
     const params = {
       Bucket: 'imagesbucketfordiplom/images/covers',
       Key: imageKey
     };
-    console.log('Параметры удаления:', params);
     await s3.deleteObject(params).promise();
 
-    console.log('Обложка успешно удалена');
     res.status(200).json({ message: 'Обложка успешно удалена' });
   } catch (error) {
     console.error('Ошибка при удалении обложки:', error);
@@ -89,7 +86,6 @@ const removeFrames = async (req, res) => {
       await s3.deleteObject(params).promise();
     }));
 
-    console.log('Кадры успешно удалены');
     res.status(200).json({ message: 'Кадры успешно удалены' });
   } catch (error) {
     console.error('Ошибка при удалении кадров:', error);
@@ -173,7 +169,6 @@ const contentFilter = async (req, res) => {
 const contentSearch = async (req, res) => {
   const { q: query } = req.query;
 
-  console.log('RESULT:', query);
 
   try {
     let moviesResult = [];
@@ -192,8 +187,6 @@ const contentSearch = async (req, res) => {
     const movies = await db.raw(moviesQuery);
     const series = await db.raw(seriesQuery);
 
-    console.log('MOVIES:', movies.rows);
-    console.log('SERIES:', series.rows);
     res.json({ movies: movies.rows, series: series.rows });
   } catch (error) {
     console.error('Ошибка при поиске:', error);
