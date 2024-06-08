@@ -125,6 +125,15 @@ const Profile = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options
+    );
+    return formattedDate;
+  };
+
   return (
     <main className="profile">
       <Helmet>
@@ -150,7 +159,7 @@ const Profile = () => {
                     </h3>
                     {userInfo && userInfo.register_date && (
                       <div className="user-joining">
-                        <span>Дата реєстрації: </span>{userInfo.register_date}
+                        <span>Дата реєстрації: </span>{formatDate(userInfo.register_date)}
                       </div>
                     )}
                   </div>
