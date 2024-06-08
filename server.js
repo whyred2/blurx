@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
-  origin: 'https://client.d24mrj9smrlg9o.amplifyapp.com',
+  origin: `${process.env.REACT_APP_CLIENT_URL}`,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 };
@@ -31,7 +31,7 @@ app.use('/admin', adminRoutes);
 
 cron.schedule('0 */12 * * *', async () => {
     try {
-      const response = await axios.delete(`http://localhost:3001/admin/admin-chat/delete`);
+      const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/admin/admin-chat/delete`);
       console.log(response.data.message);
   } catch (error) {
       console.error('Error running scheduled task:', error);
