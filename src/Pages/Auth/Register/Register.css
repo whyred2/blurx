@@ -21,7 +21,7 @@
 
 /* ФОРМА */
 .register-form {
-    max-width: 500px;
+    max-width: 550px;
     width: 100%;
     padding: 30px;
     margin: 20px;
@@ -29,6 +29,14 @@
     background: var(--black-header);
     backdrop-filter: blur(20px);
     border: 2px solid var(--border-color-dark);
+}
+
+@media (max-width: 480px) {
+    .register-form {
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+    }
 }
 
 .register-form h1 {
@@ -91,6 +99,7 @@
 
 .register-footer-info a {
     margin: 0px 5px;
+    text-align: center;
     color: var(--white-text-dark);
     transition: color 0.2s ease-in-out;
 }

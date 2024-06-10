@@ -107,6 +107,9 @@ body.light-theme {
     margin-bottom: 0;
     border: none;
   }
+  .auth-btn {
+    flex-direction: column;
+  }
 }
 
 /* СКРОЛЛБАР */
@@ -197,7 +200,6 @@ body.light-theme {
 .auth-btn {
   gap: 10px;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   z-index: 1;
 }

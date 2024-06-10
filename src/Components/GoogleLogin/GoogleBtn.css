@@ -21,15 +21,26 @@
   vertical-align: middle;
   white-space: nowrap;
   width: auto;
-  min-width: min-content;
   border-color: #8e918f;
+  max-width: 40px;
+  min-width: 40px;
+  transition: min-width 0.5s ease-in-out;
+}
+
+@media (max-width: 480px) {
+  .gsi-material-button {
+    max-width: none;
+  }
 }
 
 .gsi-material-button .gsi-material-button-icon {
   height: 20px;
-  margin-right: 12px;
   min-width: 20px;
   width: 20px;
+}
+
+.gsi-material-button:hover {
+  min-width: 300px;
 }
 
 .gsi-material-button .gsi-material-button-content-wrapper {
@@ -98,6 +109,6 @@
 }
 
 .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(0, 0, 0);
   opacity: 8%;
 }

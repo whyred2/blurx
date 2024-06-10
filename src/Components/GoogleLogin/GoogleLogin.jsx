@@ -1,38 +1,19 @@
 import React from 'react';
-import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 import './GoogleBtn.css';
 
 const GoogleAuth = ({ preventDefault }) => {
-  const login = useGoogleLogin({
-    onSuccess: async tokenResponse => {
-      console.log(tokenResponse);
-      try {
-        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/google`, {
-          token: tokenResponse.access_token,
-        });
-
-        console.log('Login Success:', response.data);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('token', response.data.token);
-        window.location.href = '/profile';
-      } catch (error) {
-        console.error('Login failed:', error);
-        alert('Ошибка авторизации. Пожалуйста, попробуйте снова.');
-      }
-    },
-    onError: errorResponse => {
-      console.error('Login failed:', errorResponse);
-      alert('Ошибка авторизации. Пожалуйста, попробуйте снова.');
-    },
-  });
-
   const handleClick = (e) => {
     if (preventDefault) {
       preventDefault(e);
     }
-    login();
+    
+    // URL для авторизации Google OAuth 2.0
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile&access_type=offline&prompt=consent`;
+
+    // Перенаправление пользователя на URL авторизации Google
+    window.location.href = googleAuthUrl;
   };
 
   return (

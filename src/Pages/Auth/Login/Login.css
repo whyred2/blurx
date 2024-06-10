@@ -28,6 +28,14 @@
     border: 2px solid var(--border-color-dark);
 }
 
+@media (max-width: 480px) {
+    .login-form {
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+    }
+}
+
 .login-form h1 {
     font-size: 30px;
 }
@@ -91,6 +99,7 @@
 
 .login-footer-info a {
     margin: 0px 5px;
+    text-align: center;
     color: var(--white-text-dark);
     transition: color 0.2s ease-in-out;
 }

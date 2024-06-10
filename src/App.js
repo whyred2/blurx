@@ -23,6 +23,7 @@ import Admin from './Pages/Admin/Admin.jsx';
 import Login from './Pages/Auth/Login/Login.jsx';
 import Register from './Pages/Auth/Register/Register.jsx';
 import Profile from './Pages/Profile/Profile.jsx';
+import GoogleCallback from './Components/GoogleLogin/GoogleCallback.jsx';
 
 import AddContent from './Pages/Admin/Content/AddContent.jsx'; 
 
@@ -62,6 +63,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route exact path="/callback" element={<GoogleCallback />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/admin" element={<Admin />} />      
               <Route path="/add-content" element={<AddContent />} />
