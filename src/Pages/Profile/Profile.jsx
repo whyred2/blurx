@@ -19,24 +19,29 @@ const Profile = () => {
 
   const [userImage, setUserImage] = useState(null);
   const navigate = useNavigate();
-
+  
+  
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        setUserInfo(response.data);
-        setUserImage(response.data.profile_image);
-      } catch (error) {
-        console.error('Ошибка при получении данных профиля:', error);
-        navigate('/login');
-      }
-    };
-
-    fetchProfileData();
+    setTimeout(() => {
+      const fetchProfileData = async () => {
+        try {
+          ;
+          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          });
+          setUserInfo(response.data);
+          setUserImage(response.data.profile_image);
+        } catch (error) {
+          console.error('Ошибка при получении данных профиля:', error);
+          navigate('/login');
+        }
+      };
+  
+      fetchProfileData();
+    }, 500);
+    
   }, [navigate]);
 
   
