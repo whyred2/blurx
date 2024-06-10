@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from './Components/Header/Header.jsx';
 import MobileHeader from './Components/HeaderMobile/HeaderMobile.jsx';
@@ -28,6 +29,8 @@ import AddContent from './Pages/Admin/Content/AddContent.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -49,6 +52,7 @@ function App() {
   }, []);
 
   return (    
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}>
     <Router>
         <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
           <div id="modal-root"></div>
@@ -89,6 +93,8 @@ function App() {
 
         </div>
     </Router>
+    </GoogleOAuthProvider>
+
   );
 }
 

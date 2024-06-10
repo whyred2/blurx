@@ -21,11 +21,14 @@
 
 /* ФОРМА */
 .register-form {
-    max-width: 550px;
+    max-width: 500px;
     width: 100%;
     padding: 30px;
     margin: 20px;
-    border-radius: 2rem;
+    border-radius: 20px;
+    background: var(--black-header);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--border-color-dark);
 }
 
 .register-form h1 {
@@ -61,7 +64,7 @@
 .auth-inputs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .auth-input {

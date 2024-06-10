@@ -8,6 +8,7 @@ import './Register.css';
 
 import LogoImageWhite from './../../../Images/Logo/BLURX_WHITE.svg';
 import LogoImageDark from './../../../Images/Logo/BLURX_DARK.svg';
+import GoogleAuth from '../../../Components/GoogleLogin/GoogleLogin';
 
 const Register = () => {
     const navigate = useNavigate(); 
@@ -86,6 +87,10 @@ const Register = () => {
         }
     };
 
+    const handleGoogleAuthClick = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <div className='register-container'>
             <Helmet>
@@ -151,9 +156,13 @@ const Register = () => {
                             </p>
                         </div>
 
-                        <button className='main-btn auth-btn' type="submit">
-                            Зареєструватись
-                        </button>
+                        <div className='auth-btn'>
+                            <button className='main-btn content-btn' style={{ height: '40px' }} type='submit'>
+                                Зареєструватись
+                            </button>
+                            <GoogleAuth preventDefault={handleGoogleAuthClick} />
+
+                        </div>
                     </form>
                 </div>
                 

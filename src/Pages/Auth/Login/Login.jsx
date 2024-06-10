@@ -8,6 +8,7 @@ import './Login.css';
 
 import LogoImageWhite from './../../../Images/Logo/BLURX_WHITE.svg';
 import LogoImageDark from './../../../Images/Logo/BLURX_DARK.svg';
+import GoogleAuth from '../../../Components/GoogleLogin/GoogleLogin';
 
 const Login = () => {
     const navigate = useNavigate(); 
@@ -68,6 +69,10 @@ const Login = () => {
         }
     };
 
+    const handleGoogleAuthClick = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <div className='login-container'>
             <Helmet>
@@ -88,31 +93,38 @@ const Login = () => {
                     </h1>
                     <p>Перш ніж продовжити вам необхідно увійти.</p>
                     <form onSubmit={handleSubmit}>
-                        <div className='auth-input'>
-                            <input
-                                placeholder='Пошта'
-                                className={'change-input'}
-                                type='email'
-                                name='email'
-                                onChange={handleChange}
-                            />
-                            {formErrors.email && <div className="error-message">{formErrors.email}</div>}
+                        <div className='auth-inputs'>
+                            <div className='auth-input'>
+                                <input
+                                    placeholder='Пошта'
+                                    className={'change-input'}
+                                    type='email'
+                                    name='email'
+                                    onChange={handleChange}
+                                />
+                                {formErrors.email && <div className="error-message">{formErrors.email}</div>}
+                            </div>
+
+                            <div className='auth-input'>
+                                <input
+                                    placeholder='Пароль'
+                                    className={'change-input'}
+                                    type='password'
+                                    name='password'
+                                    onChange={handleChange}
+                                />
+                                {formErrors.password && <div className="error-message">{formErrors.password}</div>}
+                            </div>
                         </div>
 
-                        <div className='auth-input'>
-                            <input
-                                placeholder='Пароль'
-                                className={'change-input'}
-                                type='password'
-                                name='password'
-                                onChange={handleChange}
-                            />
-                            {formErrors.password && <div className="error-message">{formErrors.password}</div>}
+                        <div className='auth-btn'>
+                            <button className='main-btn content-btn' style={{ height: '40px' }} type='submit'>
+                                Увійти
+                            </button>
+                            <GoogleAuth preventDefault={handleGoogleAuthClick} />
+
                         </div>
 
-                        <button className='main-btn auth-btn' type='submit'>
-                            Увійти
-                        </button>
                     </form>
                     <div className='login-acc'>
                         Потрібен обліковий запис? <Link to='/register'>Зареєструйся тут</Link>

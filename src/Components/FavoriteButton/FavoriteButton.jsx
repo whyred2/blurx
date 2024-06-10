@@ -9,31 +9,35 @@ const FavoriteButton = ({ contentId, contentType }) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        const fetchFavoriteStatus = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    return;
+        setTimeout(() => {
+            const fetchFavoriteStatus = async () => {
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        return;
+                    }
+                    
+                    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/favorites/check/${contentId}`, {
+                        params: {
+                            item_id: contentId,
+                            type: contentType,
+                        },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+        
+                    if (response.status === 200) {
+                        setIsFavorite(response.data.isFavorite);
+                    }
+                } catch (error) {
+                    console.error('Помилка при перевірці на обране:', error);
                 }
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/favorites/check/${contentId}`, {
-                    params: {
-                        item_id: contentId,
-                        type: contentType,
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-    
-                if (response.status === 200) {
-                    setIsFavorite(response.data.isFavorite);
-                }
-            } catch (error) {
-                console.error('Помилка при перевірці на обране:', error);
-            }
-        };
-    
-        fetchFavoriteStatus();
+            };
+        
+            fetchFavoriteStatus();      
+        }, 1000);
+        
     }, [contentId, contentType, isFavorite]);
 
     const handleAddAndRemoveToFavorites = async () => {
