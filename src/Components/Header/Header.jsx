@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 import LogoImageWhite from './../../Images/Logo/BLURX_WHITE.svg';
@@ -14,6 +14,8 @@ const Header = ({ isDarkTheme, toggleTheme }) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
     const [visible, setVisible] = useState(true);
+
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const handleScroll = () => {
@@ -50,6 +52,7 @@ const Header = ({ isDarkTheme, toggleTheme }) => {
     };
 
     const handleLogout = () => {
+        navigate('/');
         setAuthenticated(false);
         setUserRole('user');
         localStorage.removeItem('token');

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import axios from 'axios';
 
 import Header from './Components/Header/Header.jsx';
 import MobileHeader from './Components/HeaderMobile/HeaderMobile.jsx';
