@@ -40,7 +40,7 @@ const Profile = () => {
       };
   
       fetchProfileData();
-    }, 500);
+    }, 300);
     
   }, [navigate]);
 
