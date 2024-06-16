@@ -25,7 +25,7 @@ const Profile = () => {
     setTimeout(() => {
       const fetchProfileData = async () => {
         try {
-          ;
+          
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -157,7 +157,7 @@ const Register = () => {
                         </div>
 
                         <div className='auth-btn'>
-                            <button className='main-btn content-btn' style={{ height: '40px' }} type='submit'>
+                            <button className='main-btn content-btn' style={{ height: '40px', width: '100%' }} type='submit'>
                                 Зареєструватись
                             </button>
                             <GoogleAuth preventDefault={handleGoogleAuthClick} />

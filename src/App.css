@@ -88,10 +88,10 @@ body.light-theme {
   flex-direction: column;
   flex: 1 1 auto;
   font-size: 20px;
-  padding: 30px;
+  padding: 15px;
   margin: 20px auto;
   margin-top: 92px;
-  border-radius: 25px;
+  border-radius: 20px;
   border: 1px solid var(--border-color-dark);
   gap: 15px;
   max-width: 1300px;
@@ -102,11 +102,7 @@ body.light-theme {
 }
 
 @media (max-width: 480px) {
-  .content-main {
-    padding: 0;
-    margin-bottom: 0;
-    border: none;
-  }
+  
   .auth-btn {
     flex-direction: column;
   }
@@ -167,7 +163,6 @@ body.light-theme {
   background-color: var(--green-1);
   box-shadow: 0 0px 20px 5px var(--green-shadow);
   transition: 0.1s;
-  transform: translateY(2px);
   border: 2px solid var(--green-1);
 }
 

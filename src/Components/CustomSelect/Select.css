@@ -1,5 +1,6 @@
 .custom-select {
   position: relative;
+  width: 100%;
 }
 
 .select-header {
@@ -11,7 +12,7 @@
 }
 
 .select-btn {
-  border-radius: 13px;
+  border-radius: 9999px;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -20,18 +21,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid var(--white-text-dark);
+  border: 2px solid var(--border-color-dark);
+  height: 50px;
+  min-width: 50px;
 }
 
-
-.select-btn:active {
-  transform: translateY(0);
-  border: 1px solid var(--green-shadow);
-  transition: 0s;
+.select-btn:hover {
+  border: 2px solid var(--select-item-light);
 }
 
 .select-icon {
-  width: 25px;
+  min-width: 24px;
   right: 15px;
 }
 

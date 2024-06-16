@@ -102,64 +102,69 @@ const FavoritesPage = () => {
                 <Loading />
             ) : (
                 <>
-                
                     <div className='content-header-title' id='cht-1'>
                         <div className='sort'>
                             <div className='content-icon'>
-                                <LuClapperboard size={24} min={24}/>
+                                <LuClapperboard className='select-icon' size={32} min={32}/>
                             </div>
                             <h2 className='content-label-title'>Обране</h2>
                         </div>
                         <div className='sort'>
-                            <div className='content-text-sort'>Сортувати за:</div>
-                            <div className='custom-select' ref={selectRef}>        
-                                <div className='select-header'>
-                                    <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
-                                        {sortBy} 
-                                        {isOpen ? 
-                                            <LuChevronUp
-                                                className='select-icon'
-                                            /> : 
-                                            <LuChevronDown 
-                                                className='select-icon'
-                                            />
-                                        }
+                                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%', gap: '10px'}}>
+                                    <div className='custom-select' ref={selectRef}>
+                                        
+                                        <div className='select-header'>
+                                            <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
+                                                {sortBy} 
+                                                {isOpen ? 
+                                                    <LuChevronUp
+                                                        className='select-icon'
+                                                        size={24}
+                                                    /> : 
+                                                    <LuChevronDown 
+                                                        className='select-icon'
+                                                        size={24}
+                                                    />
+                                                }
+                                            </button>
+                                            
+                                        </div>
+                                        
+                                        {isOpen && (
+                                            <div className='select-list sort-list'>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою додавання')}
+                                                >
+                                                    Датою додавання
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою виходу')}
+                                                >
+                                                    Датою виходу
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Рейтингом')}
+                                                >
+                                                    Рейтингом
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Назвою')}
+                                                >
+                                                    Назвою
+                                                </label>
+                                            </div>
+                                        )}
+                                        
+                                    </div>
+                                    <button className='regular-btn select-btn' style={{padding: '0', justifyContent: 'center', width: '50px'}} onClick={handleSortOrderChange}>
+                                        {sortOrder === 'asc' ? <LuArrowDownNarrowWide size={24} /> : <LuArrowDownWideNarrow size={24} />}
                                     </button>
                                 </div>
-                                
-                                {isOpen && (
-                                    <div className='select-list sort-list'>
-                                        <label 
-                                            className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
-                                            onClick={() => handleSelect('Датою додавання')}
-                                        >
-                                            Датою додавання
-                                        </label>
-                                        <label 
-                                            className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
-                                            onClick={() => handleSelect('Датою виходу')}
-                                        >
-                                            Датою виходу
-                                        </label>
-                                        <label 
-                                            className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
-                                            onClick={() => handleSelect('Рейтингом')}
-                                        >
-                                            Рейтингом
-                                        </label>
-                                        <label 
-                                            className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
-                                            onClick={() => handleSelect('Назвою')}
-                                        >
-                                            Назвою
-                                        </label>
-                                    </div>
-                                )}
                             </div>
-                            <button className='regular-btn select-btn' onClick={handleSortOrderChange}>
-                                {sortOrder === 'asc' ? <LuArrowDownNarrowWide /> : <LuArrowDownWideNarrow />}
-                            </button>
-                        </div>
                     </div>
                     <div className="favorite-conteiner">
                         {sortContent(favorites).map((item, index) => (
@@ -172,21 +177,32 @@ const FavoritesPage = () => {
                                 <div className='favorite-body'>
                                     <div className='favorite-info'>
                                         <div className='favorite-item-top'>
-                                            <div className="favorite-titles">
-                                                <Link to={item.season ? `/series/${item.title}` : `/movie/${item.title}`} className='favorite-title'>
-                                                    {item.title}
-                                                </Link>
-                                                {' | '}
-                                                <div className='favorite-title_english'>
-                                                    {item.title_english}
+                                            <div className='favorite-top'>
+                                                <div className="favorite-titles">
+                                                    <Link to={item.season ? `/series/${item.title}` : `/movie/${item.title}`} className='favorite-title'>
+                                                        {item.title}
+                                                    </Link>
+                                                    <span>{' | '}</span>
+                                                    <div className='favorite-title_english'>
+                                                        {item.title_english}
+                                                    </div>
+                                                </div> 
+                                                <div className="favorite-item-info">
+                                                    <div className='favorite-item-year'>{new Date(item.release_date).getFullYear()}</div>
+                                                    {' | '}
+                                                    <div className='favorite-item-duration'>{item.duration_minutes} хв.</div>            
+                                                    {' | '}
+                                                    <div className='favorite-item-age'>{item.age_rating}</div>
                                                 </div>
-                                            </div> 
-                                            <div className="favorite-item-info">
-                                                <div className='favorite-item-year'>{new Date(item.release_date).getFullYear()}</div>
-                                                {' | '}
-                                                <div className='favorite-item-duration'>{item.duration_minutes} хв.</div>            
-                                                {' | '}
-                                                <div className='favorite-item-age'>{item.age_rating}</div>
+                                            </div>
+
+                                            <div className="favorite-absolution">
+                                                <div className='favorite-item-rating'>
+                                                    <IoStar className='icon-star' size={24} min={24}/>{item.rating}
+                                                </div>
+                                                <div className='favorite-item-type'>
+                                                    {item.season ? 'Серіал' : 'Фільм'}
+                                                </div>
                                             </div>
                                         </div>
                                         <div className='favorite-item-bottom'>
@@ -197,32 +213,15 @@ const FavoritesPage = () => {
                                                 <FavoriteButton contentId={item.id} contentType={item.season ? 'series' : 'movie'} />
                                             </div>
                                         </div>
-                                        
                                     </div>
-
-                                    <div className="favorite-absolution">
-                                        
-                                        <div className='favorite-item-rating'>
-                                            <IoStar className='icon-star' size={24} min={24}/>{item.rating}
-                                        </div>
-                                        <div className='favorite-item-type'>
-                                            {item.season ? 'Серіал' : 'Фільм'}
-                                        </div>
-                                    </div>
-                                    
                                 </div>
-                               
-                                    
-                                
                             </div>
                         ))}
                     </div>
-                        
                 </>
             )}
-            
         </div>
     );
 }
- 
+
 export default FavoritesPage;

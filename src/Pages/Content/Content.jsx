@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { IoStar } from 'react-icons/io5';
 import { LuClapperboard, LuChevronUp, LuChevronDown, LuArrowDownNarrowWide, LuArrowDownWideNarrow } from 'react-icons/lu';
-import { TriangleAlert } from 'lucide-react';
+import { TriangleAlert, Filter } from 'lucide-react';
 import '../../Components/Filter/Filter.jsx';
 import './Content.css';
 import { Helmet } from "react-helmet";
 
-import Filter from '../../Components/Filter/Filter.jsx';
+import FilterForm from '../../Components/Filter/Filter.jsx';
 import Loading from '../../Components/Loader/Loader.jsx';
 import FavoriteButton from '../../Components/FavoriteButton/FavoriteButton.jsx';
 
@@ -17,6 +17,7 @@ const Content = ({ contentType }) => {
     const [selectedItem, setSelectedItem] = useState('Датою додавання');
     const [sortOrder, setSortOrder] = useState('asc');
     const selectRef = useRef(null);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
 
@@ -72,6 +73,10 @@ const Content = ({ contentType }) => {
         setLoading(false);
     };
 
+    const toggleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
+    };
+
     return (
         <div className='content' >
             <Helmet>
@@ -89,60 +94,68 @@ const Content = ({ contentType }) => {
                         <div className='content-header-title'>
                             <div className='sort'>
                                 <div className='content-icon'>
-                                    <LuClapperboard size={32} min={32}/>
+                                    <LuClapperboard className='select-icon' size={32} min={32}/>
                                 </div>
                                 <h2 className='content-label-title'>Фільми</h2>
                             </div>
+                            
                             <div className='sort'>
-                                <div className='content-text-sort'>Сортувати за:</div>
-                                <div className='custom-select' ref={selectRef}>
-                                    
-                                    <div className='select-header'>
-                                        <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
-                                            {sortBy} 
-                                            {isOpen ? 
-                                                <LuChevronUp
-                                                    className='select-icon'
-                                                /> : 
-                                                <LuChevronDown 
-                                                    className='select-icon'
-                                                />
-                                            }
-                                        </button>
+                                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%', gap: '10px'}}>
+                                    <div className='custom-select' ref={selectRef}>
+                                        
+                                        <div className='select-header'>
+                                            <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
+                                                {sortBy} 
+                                                {isOpen ? 
+                                                    <LuChevronUp
+                                                        className='select-icon'
+                                                        size={24}
+                                                    /> : 
+                                                    <LuChevronDown 
+                                                        className='select-icon'
+                                                        size={24}
+                                                    />
+                                                }
+                                            </button>
+                                            
+                                        </div>
+                                        
+                                        {isOpen && (
+                                            <div className='select-list sort-list'>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою додавання')}
+                                                >
+                                                    Датою додавання
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою виходу')}
+                                                >
+                                                    Датою виходу
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Рейтингом')}
+                                                >
+                                                    Рейтингом
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Назвою')}
+                                                >
+                                                    Назвою
+                                                </label>
+                                            </div>
+                                        )}
                                         
                                     </div>
-                                    
-                                    {isOpen && (
-                                        <div className='select-list sort-list'>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
-                                                onClick={() => handleSelect('Датою додавання')}
-                                            >
-                                                Датою додавання
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
-                                                onClick={() => handleSelect('Датою виходу')}
-                                            >
-                                                Датою виходу
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
-                                                onClick={() => handleSelect('Рейтингом')}
-                                            >
-                                                Рейтингом
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
-                                                onClick={() => handleSelect('Назвою')}
-                                            >
-                                                Назвою
-                                            </label>
-                                        </div>
-                                    )}
+                                    <button className='regular-btn select-btn' style={{padding: '0', justifyContent: 'center', width: '50px'}} onClick={handleSortOrderChange}>
+                                        {sortOrder === 'asc' ? <LuArrowDownNarrowWide size={24} /> : <LuArrowDownWideNarrow size={24} />}
+                                    </button>
                                 </div>
-                                <button className='regular-btn select-btn' onClick={handleSortOrderChange}>
-                                    {sortOrder === 'asc' ? <LuArrowDownNarrowWide /> : <LuArrowDownWideNarrow />}
+                                <button className='regular-btn select-btn' style={{justifyContent: 'center'}} onClick={toggleFilter} toggleFilter={toggleFilter}>
+                                    <Filter className='select-icon' size={24}/> Фільтр
                                 </button>
                             </div>
                         </div>
@@ -156,7 +169,7 @@ const Content = ({ contentType }) => {
                                             <div key={item.id} className='content-movie'>
                                                 <div className='content-cover'>
                                                     <Link to={`/movie/${item.title}`}>
-                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} />
+                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} style={{maxHeight: '290px'}} />
                                                     </Link>
                                                     <div className='content-rating'>
                                                         <IoStar size={24} min={24}/>{item.rating}
@@ -170,7 +183,7 @@ const Content = ({ contentType }) => {
                                                     <div className='content-add'>
                                                         <FavoriteButton contentId={item.id} contentType='movie'/>
                                                         <div className='content-trailer'>
-                                                            <Link to={item.trailer_url} className='regular-btn content-btn' target='_blank' rel='noopener noreferrer'>Дивитися трейлер</Link>
+                                                            <Link to={item.trailer_url} className='regular-btn content-btn' target='_blank' rel='noopener noreferrer'>Трейлер</Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,60 +207,64 @@ const Content = ({ contentType }) => {
                         <div className='content-header-title'>
                             <div className='sort'>
                                 <div className='content-icon'>
-                                    <LuClapperboard size={32} min={32}/>
+                                    <LuClapperboard className='select-icon' size={32} min={32}/>
                                 </div>
                                 <h2 className='content-label-title'>Серіали</h2>
                             </div>
                             <div className='sort'>
-                                <div className='content-text-sort'>Сортувати за:</div>
-                                <div className='custom-select' ref={selectRef}>
-                                    
-                                    <div className='select-header'>
-                                        <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
-                                            {sortBy} 
-                                            {isOpen ? 
-                                                <LuChevronUp
-                                                    className='select-icon'
-                                                /> : 
-                                                <LuChevronDown 
-                                                    className='select-icon'
-                                                />
-                                            }
-                                        </button>
+                                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%', gap: '10px'}}>
+                                    <div className='custom-select' ref={selectRef}>
                                         
-                                    </div>
-                                    
-                                    {isOpen && (
-                                        <div className='select-list sort-list'>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
-                                                onClick={() => handleSelect('Датою додавання')}
-                                            >
-                                                Датою додавання
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
-                                                onClick={() => handleSelect('Датою виходу')}
-                                            >
-                                                Датою виходу
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
-                                                onClick={() => handleSelect('Рейтингом')}
-                                            >
-                                                Рейтингом
-                                            </label>
-                                            <label 
-                                                className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
-                                                onClick={() => handleSelect('Назвою')}
-                                            >
-                                                Назвою
-                                            </label>
+                                        <div className='select-header'>
+                                            <button className='regular-btn select-btn' id='sb-1' onClick={() => setIsOpen(!isOpen)}>
+                                                {sortBy} 
+                                                {isOpen ? 
+                                                    <LuChevronUp
+                                                        className='select-icon'
+                                                    /> : 
+                                                    <LuChevronDown 
+                                                        className='select-icon'
+                                                    />
+                                                }
+                                            </button>
+                                            
                                         </div>
-                                    )}
+                                        
+                                        {isOpen && (
+                                            <div className='select-list sort-list'>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою додавання' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою додавання')}
+                                                >
+                                                    Датою додавання
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Датою виходу' ? 'selected' : ''}`}
+                                                    onClick={() => handleSelect('Датою виходу')}
+                                                >
+                                                    Датою виходу
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Рейтингом' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Рейтингом')}
+                                                >
+                                                    Рейтингом
+                                                </label>
+                                                <label 
+                                                    className={`select-item ${selectedItem === 'Назвою' ? 'selected' : ''}`} 
+                                                    onClick={() => handleSelect('Назвою')}
+                                                >
+                                                    Назвою
+                                                </label>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button className='regular-btn select-btn' style={{padding: '0', justifyContent: 'center', width: '50px'}} onClick={handleSortOrderChange}>
+                                        {sortOrder === 'asc' ? <LuArrowDownNarrowWide size={24} /> : <LuArrowDownWideNarrow size={24} />}
+                                    </button>
                                 </div>
-                                <button className='regular-btn select-btn' onClick={handleSortOrderChange}>
-                                    {sortOrder === 'asc' ? <LuArrowDownNarrowWide /> : <LuArrowDownWideNarrow />}
+                                <button className='regular-btn select-btn' style={{justifyContent: 'center'}} onClick={toggleFilter} toggleFilter={toggleFilter}>
+                                    <Filter className='select-icon' size={24}/> Фільтр
                                 </button>
                             </div>
                         </div>
@@ -275,7 +292,7 @@ const Content = ({ contentType }) => {
                                                     <div className='content-add'>
                                                         <FavoriteButton contentId={item.id} contentType='series'/>
                                                         <div className='content-trailer'>
-                                                            <Link to={item.trailer_url} className='regular-btn content-btn' target='_blank' rel='noopener noreferrer'>Дивитися трейлер</Link>
+                                                            <Link to={item.trailer_url} className='regular-btn content-btn' target='_blank' rel='noopener noreferrer'>Трейлер</Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -283,7 +300,7 @@ const Content = ({ contentType }) => {
                                         ))
                                     ) : (
                                         <div className='alert'>
-                                                <TriangleAlert size={24} min={24} />
+                                                <TriangleAlert className='select-icon' size={24} min={24} />
                                                 <div className=''> 
                                                     За заданими параметрами нічого не знайдено, спробуйте змінити параметри пошуку.
                                                 </div>
@@ -298,7 +315,7 @@ const Content = ({ contentType }) => {
 
             
 
-            <Filter setFilteredContent={handleFilteredContent} />
+            <FilterForm setFilteredContent={handleFilteredContent} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
         </div>
     );
 }

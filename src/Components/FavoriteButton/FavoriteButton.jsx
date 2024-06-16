@@ -83,17 +83,16 @@ const FavoriteButton = ({ contentId, contentType }) => {
     return (
         <button
             className={`main-btn content-btn ${isFavorite ? 'favorite-btn' : ''}`}
+            style={{minWidth: '40px', minHeight: '40px'}}
             onClick={handleAddAndRemoveToFavorites}
         >
             {isFavorite ? (
                 <>
                     <Heart size={24} className='heart-icon' />
-                    Видалити з обраного
                 </>
             ) : (
                 <>
                     <Heart size={24} />
-                    Додати в обране
                 </>
             )}
         </button>

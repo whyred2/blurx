@@ -49,3 +49,14 @@
         border: 2px solid var(--blue-1);
     }
 }
+
+@media (max-width: 400px) {
+    .upload-image {
+        padding: 10px;
+    }
+
+    canvas {
+        width: 300px !important;
+        height: 300px !important;
+    }
+}

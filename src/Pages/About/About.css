@@ -4,6 +4,7 @@
     padding: 60px;
     flex: 1;
     margin-top: 72px;
+    text-align: justify;
 }
 
 .about-heading {
@@ -27,4 +28,10 @@
 .about-info p {
     font-size: 20px;
     margin-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        padding: 15px;
+    }
 }

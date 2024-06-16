@@ -25,7 +25,6 @@ const Movie = () => {
             .catch(error => {
                 console.error('Ошибка при получении контента:', error);
             });
-
         }, 
     []);
 
@@ -33,8 +32,8 @@ const Movie = () => {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToShow: 6,
+        slidesToScroll: 2,
         autoplay: true,
         autoplaySpeed: 3000,
         prevArrow: <CustomPrevArrow />,
@@ -43,7 +42,7 @@ const Movie = () => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                     infinite: true,
                 },
@@ -51,14 +50,14 @@ const Movie = () => {
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 },
             },
@@ -74,10 +73,10 @@ const Movie = () => {
                 <>
                     <Slider {...settings}>
                         {content.map((item) => (
-                            <div key={item.id} className='content-slider'>
+                            <div key={item.id} className='content-movie all-content'>
                                 <div className='content-cover'>
                                     <Link to={`/movie/${item.title}`}>
-                                        <img className='content-image' src={item.cover_image} alt={item.title} />
+                                        <img className='image-content' src={item.cover_image} alt={item.title} />
                                     </Link>
                                     <div className='content-rating'>
                                         <IoStar size={24} min={24}/>{item.rating}

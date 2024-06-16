@@ -51,14 +51,14 @@ const SearchContainer = () => {
         <form className='search-container'>
             <input
                 type='text'
-                placeholder='Поиск'
+                placeholder='Пошук'
                 value={searchQuery}
                 onChange={handleSearchInputChange}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 ref={searchInputRef}
             />
-            <button type='submit' className='search-btn' title='Поиск'>
+            <button type='submit' className='search-btn' title='Пошук'>
                 <Search size={24} />
             </button>
             {isSearchActive && (searchResults.movies.length > 0 || searchResults.series.length > 0) && (

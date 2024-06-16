@@ -118,7 +118,7 @@ const Login = () => {
                         </div>
 
                         <div className='auth-btn'>
-                            <button className='main-btn content-btn' style={{ height: '40px' }} type='submit'>
+                            <button className='main-btn content-btn' style={{ height: '40px', width: '100%' }} type='submit'>
                                 Увійти
                             </button>
                             <GoogleAuth preventDefault={handleGoogleAuthClick} />

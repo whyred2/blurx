@@ -4,7 +4,6 @@
 }
 
 .form {
-  min-width: 412px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -14,6 +13,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.content-img {
+  height: auto !important;
+  max-width: 300px;
 }
 
 .form-btn {
@@ -55,42 +59,68 @@
 .rating {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  flex-wrap: wrap;
+  padding-bottom: 10px !important;
+  gap: 10px;
 }
-  
+
+.rating-header p {
+  font-size: 20px;
+}
+
 .stars-container {
   display: flex;
-  gap: 3px;
+  gap: 5px;
   background: var(--black-6);
-  border-radius: 9999px;
-  padding: 0px 10px;
-  height: 40px;
+  border-radius: 15px;
   border: 2px solid var(--border-color-dark);
+
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stars-container:hover {
   border: 2px solid var(--blue-1);
 }
-  
+
+.close-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
 .star {
   color: var(--select-item-dark);
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
-  
+
 .star.filled {
   color: var(--blue-1);
 }
-  
+
 .star:hover {
   transform: scale(1.3);
+  will-change: transform;
 }
 
 .total-star-rating {
-  color: var(--gold); 
+  color: var(--gold);
+  min-width: 50px;
+  width: 60px;
 }
 
 .user-star-rating {
   color: var(--blue-1);
+  min-width: 50px;
+  width: 60px;
 }
 
 .total-info {
@@ -112,7 +142,7 @@
   font-weight: bold;
 }
 
-.rating-span{
+.rating-span {
   color: var(--span-text-dark);
   font-weight: 300;
 }
@@ -138,6 +168,7 @@
 
 .content-table {
   border: none;
+  background-color: transparent;
 }
 
 .table-info {
@@ -159,10 +190,9 @@
   border: none;
 }
 
-
 .frames-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 15px;
 }
 
@@ -173,7 +203,7 @@
 
 .frame-image {
   border-radius: 15px;
-  min-height: 220px;
+  min-height: 200px;
   object-fit: cover;
 }
 
@@ -182,7 +212,7 @@
 }
 
 .frame-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.07);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -212,3 +242,180 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+.trailer-conteiner {
+  z-index: 10;
+}
+
+.description-container p {
+  text-align: justify;
+}
+
+.hor-line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-color-dark);
+}
+
+@media (max-width: 480px) {
+  .content-main {
+    font-size: 16px;
+    gap: 10px;
+    margin-top: 60px;
+  }
+
+  .form-container,
+  .movie-body {
+    gap: 10px;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .cover {
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-conteiner {
+    padding: 10px !important;
+  }
+
+  .rating-title {
+    font-size: 18px;
+  }
+
+  .content-img {
+    max-width: 250px;
+  }
+
+  .total-star-rating,
+  .user-star-rating {
+    min-width: 40px;
+    width: 40px;
+  }
+
+  .total-star-rating,
+  .user-star-rating {
+    min-width: 50px;
+    width: 50px;
+  }
+
+  .star {
+    width: 28px;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .content-row {
+    height: auto;
+  }
+
+  .form-container {
+    flex-wrap: wrap;
+  }
+
+  .info {
+    width: 150px;
+  }
+
+  .frames {
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .frame-image {
+    min-height: 100px;
+  }
+
+  .trailer {
+    height: 200px !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .content-main {
+    font-size: 18px;
+    margin-top: 60px;
+  }
+
+  .content-main,
+  .form-container,
+  .movie-body,
+  .series-body {
+    gap: 10px;
+  }
+
+  .content-conteiner {
+    padding: 10px !important;
+  }
+
+  .rating-title {
+    font-size: 20px;
+  }
+
+  .content-img {
+    max-width: 200px;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .content-row {
+    height: 35px;
+  }
+
+  .info {
+    width: 150px;
+  }
+
+  .frames {
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .frame-image {
+    min-height: 130px;
+  }
+
+  .trailer {
+    height: 370px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .content-main {
+    font-size: 18px;
+  }
+
+  .content-img {
+    max-width: 250px;
+  }
+
+  .rating-title {
+    font-size: 20px;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .content-row {
+    height: auto;
+  }
+
+  .frames {
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trailer {
+    height: 500px !important;
+  }
+}

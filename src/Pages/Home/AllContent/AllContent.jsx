@@ -6,10 +6,32 @@ import { IoStar } from "react-icons/io5";
 import FavoriteButton from '../../../Components/FavoriteButton/FavoriteButton';
 import { Ellipsis } from 'lucide-react';
 
+function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+  
+    useEffect(() => {
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        }
+  
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowSize;
+}
+
 const AllContent = () => {
     const [content, setContent] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 4;
+    const itemsPerPage = 8;
+    const { width } = useWindowSize();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,7 +62,7 @@ const AllContent = () => {
     const displayContent = content
         .slice(pageNumber * itemsPerPage, (pageNumber + 1) * itemsPerPage)
         .map((item, index) => (
-            <div key={`${item.type}-${item.id}`} className='all-content'>
+            <div key={`${item.type}-${item.id}`} className='content-movie all-content'>
                 <div className='content-cover'>
                     <Link to={item.season ? `/series/${item.title}` : `/movie/${item.title}`}>
                         <img className='content-image' src={item.cover_image} alt={item.title} />
@@ -68,19 +90,20 @@ const AllContent = () => {
 
     return (
         <div className='all-content-container'>
+            <h1 className='content-header'>Увесь контент</h1>
             <div className='all-content-items'>
                 {displayContent}
             </div>
             <ReactPaginate
                 previousLinkClassName={'page-previous'}
                 nextLinkClassName={'page-next'}
-                previousLabel={'Назад'}
-                nextLabel={'Вперед'}
+                previousLabel={width > 768 ? 'Назад' : '<'}
+                nextLabel={width > 768 ? 'Вперед' : '>'}
                 breakLabel={<Ellipsis />}
                 breakLinkClassName={'page-break'}
                 pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
+                marginPagesDisplayed={width > 600 ? 2 : 1}
+                pageRangeDisplayed={width > 600 ? 5 : 3}
                 onPageChange={handlePageChange}
                 pageLinkClassName={'page'}
                 activeLinkClassName={'active-page'}

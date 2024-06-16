@@ -1,0 +1,71 @@
+.feedback-form {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background-color: var(--black-3);
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    padding: 20px;
+    z-index: 1000;
+    transition: right 0.7s ease-in-out;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.feedback-form.open {
+    right: 0;
+    overflow: hidden;
+}
+
+.feedback-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feedback-top .close {
+    display: flex;
+    align-items: center;
+}
+
+.feedback-main {
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.feedback-form h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    height: auto;
+    resize: none;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+.feedback-main span {
+    font-size: 16px;
+    color: var(--span-text-dark)
+}
+
+.feedback-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-bottom p {
+    text-align: justify;
+}
+
+.feedback-bottom button {
+    margin-top: 20px;
+}

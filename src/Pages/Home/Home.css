@@ -19,24 +19,19 @@
   margin: 0px 72px;
 }
 
-/* Стили для каждого элемента слайдера */
-.content-slider {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color-dark);
-  border-radius: 15px;
-  background-color: var(--black-3);
-  padding: 15px;
-}
-
+/* Стили для каждого элемента */
 .content-image {
   height: 400px;
   width: 100%;
-  max-height: 400px;
+  max-height: 270px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.image-content {
+  height: 400px;
+  width: 100%;
+  max-height: 270px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -52,8 +47,8 @@
 }
 
 .slick-slide {
-  padding-right: 8px; 
-  padding-left: 8px;
+  padding-right: 6px; 
+  padding-left: 6px;
 }
 
 .slick-slider.slick-initialized {
@@ -64,12 +59,13 @@
 
 .navigation-btn {
   color: var(--white-text-dark);
-  min-height: 200px;
-  min-width: 50px;
+  min-height: 150px;
+  min-width: 45px;
   display: flex;
   padding: 0;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .content-title {
@@ -97,25 +93,27 @@
 }
 
 .content-link {
-  font-size: 20px;
   overflow: hidden;
 }
 
 .content-footer {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
   justify-content: space-between;
+  font-size: 16px;
+
 }
 
 .content-btn {
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding: 0;
+  height: 40px;
 }
 
 /* Auth.css */
@@ -191,35 +189,26 @@ a.regular-btn.enter-auth-btn:hover {
 
 .content-add {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   font-size: 16px;
 }
 
+.content-trailer {
+  width: 100%;
+}
+
 .all-content-container {
-  max-width: 1300px;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .all-content-items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-.all-content {
-  position: relative;
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color-dark);
-  border-radius: 15px;
-  background-color: var(--black-3);
-  padding: 15px;
-  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  max-width: 1000px;
 }
 
 .pagination {
@@ -283,7 +272,7 @@ a.regular-btn.enter-auth-btn:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  width: 150px;
   height: 50px;
   border-radius: 10px;
 }
@@ -306,10 +295,27 @@ a.regular-btn.enter-auth-btn:hover {
   align-items: flex-end;
 }
 
+.lucide.lucide-ellipsis {
+  min-width: 24px;
+}
+
+@media (max-width: 540px) {
+  .image-content {
+    height: 240px !important;
+  }
+
+  
+
+  .all-content-items {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+  }
+}
 
 @media (max-width: 768px) {
   .home {
-    margin: 70px 20px;
+    margin: 70px 10px;
   }
 
   .content-header {
@@ -331,9 +337,40 @@ a.regular-btn.enter-auth-btn:hover {
   .auth-container {
     display: none;
   }
+
+  .slick-slide {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .all-content-items, #la-1{
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+  }
+
+  .pagination {
+    font-size: 16px;
+    gap: 5px;
+    padding: 5px;
+  }
+  
+  .active-page, .page, .page-break {
+    width: 30px;
+    height: 40px;
+  }
+
+  .page-previous, .page-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lucide.lucide-ellipsis {
+    min-width: 20px;
+  }
 }
 
-@media (min-width: 768px) and (max-width: 1100px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .content-image {
     height: 270px;
   }
@@ -341,6 +378,17 @@ a.regular-btn.enter-auth-btn:hover {
   .auth-container {
     display: none;
   }
+
+  .navigation-btn {
+    min-width: 30px;
+    min-height: 100px;
+  }
+  
+  .all-content-items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  
 }
 
 @media (min-width: 1390px) {

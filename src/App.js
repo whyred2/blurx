@@ -6,6 +6,7 @@ import MobileHeader from './Components/HeaderMobile/HeaderMobile.jsx';
 import Footer from './Components/Footer/Footer.jsx';
 import ScrollToTop from './Components/ScrollToTop/ScrolltoTop'
 import BackgroundLines from './Components/Lines/BackgroundLines.jsx';
+import FeedbackForm from './Components/FeedbackForm/FeedbackForm.jsx';
 
 import Home from './Pages/Home/Home.jsx';
 import About from './Pages/About/About.jsx';
@@ -53,47 +54,48 @@ function App() {
 
   return (    
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}>
-    <Router>
-        <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
-          <div id="modal-root"></div>
-          <BackgroundLines />
-          <Routes>
-            <Route path="/" element={<OutletFooter isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />}>
-              <Route index element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route exact path="/callback" element={<GoogleCallback />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<Admin />} />      
-              <Route path="/add-content" element={<AddContent />} />
-              <Route path="/movie/:movieId" element={<MoviePage />} />
-              <Route path="/series/:seriesId" element={<SeriesPage />} />
-              <Route path="/movies" element={<Content contentType="movies" />} />
-              <Route path="/series" element={<Content contentType="series" />} />
-              <Route path='/search' element={<Search />} />
-              <Route path='/favorites' element={<FavoritesPage />} />
-            </Route>
+      <Router>
+          <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
+            <div id="modal-root"></div>
+            <BackgroundLines />
+            <Routes>
+              <Route path="/" element={<OutletFooter isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />}>
+                <Route index element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route exact path="/callback" element={<GoogleCallback />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<Admin />} />      
+                <Route path="/add-content" element={<AddContent />} />
+                <Route path="/movie/:movieId" element={<MoviePage />} />
+                <Route path="/series/:seriesId" element={<SeriesPage />} />
+                <Route path="/movies" element={<Content contentType="movies" />} />
+                <Route path="/series" element={<Content contentType="series" />} />
+                <Route path='/search' element={<Search />} />
+                <Route path='/favorites' element={<FavoritesPage />} />
+              </Route>
+              
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
             
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <ScrollToTop />
-          <ToastContainer
-            position="bottom-left"
-            autoClose={3000}
-            limit={10}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+            <ScrollToTop />
+            <ToastContainer
+              position="bottom-left"
+              autoClose={3000}
+              limit={10}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
 
-        </div>
-    </Router>
+          </div>
+      </Router>
     </GoogleOAuthProvider>
 
   );
@@ -102,6 +104,8 @@ function App() {
 export default App;
 
 function OutletFooter() {
+  const [feedbackFormVisible, setFeedbackFormVisible] = useState(false);
+
   const [isDarkTheme, setIsDarkTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme ? savedTheme === 'dark' : true;
@@ -114,9 +118,15 @@ function OutletFooter() {
     document.body.className = newIsDarkTheme ? 'dark-theme' : 'light-theme';
   };
 
+  const toggleFeedbackForm = () => {
+    setFeedbackFormVisible(prevState => !prevState);
+  };
+
   return (
     <>
-      <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+      <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} toggleFeedbackForm={toggleFeedbackForm} />
+      <FeedbackForm feedbackFormVisible={feedbackFormVisible} toggleVisibility={toggleFeedbackForm} />
+
       <MobileHeader isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
       <Outlet />
       <Footer isDarkTheme={isDarkTheme} />

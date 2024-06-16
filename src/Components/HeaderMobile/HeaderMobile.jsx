@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 import HeaderMenu from "./HeaderMobileMenu";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
@@ -11,11 +12,19 @@ import { Menu, Search, User, LogOut, X } from 'lucide-react';
 import LogoImageWhite from './../../Images/Logo/BLURX_WHITE.svg';
 import LogoImageDark from './../../Images/Logo/BLURX_DARK.svg';
 
-const MobileHeader = ({ isDarkTheme, toggleTheme }) => {
+import { Sheet, CircleUser, CircleHelp } from 'lucide-react';
+
+
+const MobileHeader = ({ isDarkTheme, toggleTheme, toggleFeedbackForm }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [userRole, setUserRole] = useState('user');
     const [authenticated, setAuthenticated] = useState(false);
+    const [userMenu, setUserMenu] = useState(false);
+    const [userInfo, setUserInfo] = useState(null);
+    const [userImage, setUserImage] = useState(null);
+    const userMenuRef = useRef(null);
+    const userImageBtnRef = useRef(null);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -32,6 +41,23 @@ const MobileHeader = ({ isDarkTheme, toggleTheme }) => {
             setUserRole(decodedToken.role);
 
             setAuthenticated(true);
+
+            const fetchProfileData = async () => {
+                try {
+                
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setUserInfo(response.data);
+                setUserImage(response.data.profile_image);
+                } catch (error) {
+                    console.error('Ошибка при получении данных пользоваетеля:', error);
+                }
+            };
+
+            fetchProfileData();
         }
     }, []);
     
@@ -62,6 +88,32 @@ const MobileHeader = ({ isDarkTheme, toggleTheme }) => {
 
     const logoSrc = isDarkTheme ? LogoImageWhite : LogoImageDark;
 
+    const toggleUserMenu = () => {
+        setUserMenu(prevState => !prevState);
+    };
+
+    const handleClickOutside = (event) => {
+        if (userMenuRef.current && !userMenuRef.current.contains(event.target) &&
+            userImageBtnRef.current && !userImageBtnRef.current.contains(event.target)) {
+            setUserMenu(false);
+        }
+    };
+
+    useEffect(() => {
+        if (userMenu) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.body.style.overflow = '';
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [userMenu]);
+
+
     return (
         <>
             <header className="mobile-header">
@@ -80,7 +132,6 @@ const MobileHeader = ({ isDarkTheme, toggleTheme }) => {
                 
                 
                 <div className="mobile-header-btns">
-                <ThemeSwitch isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
 
                     <div className="mobile-search" onClick={toggleSearch}>
                         <Search className="mobile-icon" size={30} min={30} />
@@ -95,16 +146,51 @@ const MobileHeader = ({ isDarkTheme, toggleTheme }) => {
                     )}
 
                     {authenticated ? (
-                        <>
-                            <Link to='/profile' className="mobile-auth">
-                                <User className="mobile-icon" size={30} min={30} />
-                            </Link>
-                            <Link to='/'
-                                onClick={handleLogout}
-                                className="mobile-auth"
-                            >
-                                <LogOut className="mobile-icon" size={30} min={30} /> 
-                            </Link>
+                        <><div className='user-image-btn' ref={userImageBtnRef} onClick={toggleUserMenu}>
+                        {userImage ? (
+                            <img className='user-image' src={userImage} alt='user'></img>
+                        ) : (
+                            <CircleUser size={40}/>
+                        )}
+                    </div>
+                            {userMenu && (
+                        <div className='user-menu' ref={userMenuRef}>
+                            <div className='top'>
+                                {userImage ? (
+                                    <img className='user-image' src={userImage} alt='user' style={{width: '50px', height: '50px'}}></img>
+                                ) : (
+                                    <CircleUser size={50}/>
+                                )}
+                                <div className='info'>
+                                    <div className='span'>{userInfo.username}</div>
+                                    <div className='span'>{userInfo.email}</div>
+                                </div>
+                            </div>
+                            <div className='main'>
+
+                                {userRole === 'admin' && (
+                                    <Link to='/admin' className='header-btn content-btn' style={{justifyContent: 'flex-start', padding: '0 15px'}}>
+                                        <Sheet size={24}/> Адмін панель
+                                    </Link>
+                                )}
+                                <Link to='/profile' className='header-btn content-btn' style={{justifyContent: 'flex-start', padding: '0 15px'}}>
+                                    <User size={24}/> Профіль
+                                </Link>
+                                <Link to='/' onClick={handleLogout} className='header-btn content-btn' style={{justifyContent: 'flex-start', padding: '0 15px'}}>
+                                    <LogOut size={24}/> Вийти
+                                </Link>
+                            </div>
+                            <div className='bottom'>
+                                <div className='span'><ThemeSwitch isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} /> Змінити тему</div>
+                                <button onClick={toggleFeedbackForm} className='header-btn content-btn' style={{justifyContent: 'flex-start', padding: '0 15px'}}>
+                                    <CircleHelp size={24}/> Потрібна допомога?
+                                </button>
+                                
+
+                            </div>
+
+                        </div>
+                    )}
                         </>
                     ) : (
                         <Link to='/login' className="mobile-auth">

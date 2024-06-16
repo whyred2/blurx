@@ -25,6 +25,8 @@ const MoviePage = () => {
     const [ratingCount, setRatingCount] = useState(null);
     const [hoveredRating, setHoveredRating] = useState(null);
     const [currentFrame, setCurrentFrame] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isRatingFormVisible, setIsRatingFormVisible] = useState(false);
     const trailerContainerRef = useRef(null);
     const navigate = useNavigate();
 
@@ -33,7 +35,6 @@ const MoviePage = () => {
         if (token) {
             const decodedToken = decodeToken(token);
             setUserRole(decodedToken.role);
-      
             setAuthenticated(true);
         }
         
@@ -84,7 +85,16 @@ const MoviePage = () => {
 
     useEffect(() => {
         setRating(userRating);
-    }, [userRating, userRated]);
+
+        if (isPlaying) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [userRating, userRated, isPlaying]);
 
     const handleRatingChange = async (value) => {
         try {
@@ -109,6 +119,7 @@ const MoviePage = () => {
                 setRating(value);
                 setUserRating(value);
                 setHoveredRating(null);
+                setIsRatingFormVisible(false);
             }
         } catch (error) {
             console.error('Ошибка при оценке сериала:', error);
@@ -161,6 +172,29 @@ const MoviePage = () => {
         }
     };
 
+    const handlePlay = () => {
+        setIsPlaying(true);
+        toast.info('Зупиніть програвання, щоб повернутися');
+        let scrollTopElement = document.getElementById('scroll-top');
+        scrollTopElement.style.display = 'none';
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
+        let scrollTopElement = document.getElementById('scroll-top');
+        scrollTopElement.style.display = 'block'
+    };
+
+    const handleStarClick = (event) => {
+        event.stopPropagation(); // Останавливаем распространение события
+        setIsRatingFormVisible(true);
+    };
+
+    const handleCloseButtonClick = (event) => {
+        event.stopPropagation(); // Останавливаем распространение события
+        setIsRatingFormVisible(false);
+    };
+
     return (
         <div className='content-main'>
             <Helmet>
@@ -170,7 +204,7 @@ const MoviePage = () => {
             <div className='form-container'>
                 <div className='form content-conteiner'>
                     <div className='cover'>
-                        <img className='cover-img' src={series.series.cover_image} alt={series.series.title} />
+                        <img className='cover-img content-img' src={series.series.cover_image} alt={series.series.title} />
                     </div>
                     <div className='form-btn'>
                         <FavoriteButton contentId={series.series.id} contentType='series' />
@@ -200,7 +234,7 @@ const MoviePage = () => {
                     <div className='rating content-conteiner'>
                         <div className='rating-info'>
                             <h3 className='rating-title'>Рейтинг BLURX:</h3>
-                            <div className='total-info'>
+                            <div className='total-info regular-btn' style={{border: 'none', padding: '5px 10px', borderRadius: '10px', alignItems: 'center'}}>
                                 <IoStar 
                                     size={70}
                                     min={70}
@@ -217,32 +251,52 @@ const MoviePage = () => {
                         </div>
                         <div className='rating-info'>
                             <h3 className='rating-title'>Моя оцінка:</h3>
-                            <div className='total-info'>
+                            <div className='total-info regular-btn' style={{border: 'none', padding: '5px 10px', borderRadius: '10px', alignItems: 'center'}} onClick={handleStarClick}>
                                 <IoStar 
                                     size={70}
                                     min={70}
                                     className='user-star-rating'
+                                    onClick={() => setIsRatingFormVisible(true)}
                                 />
                                 <div className='pr-2'>
                                     <div className='total-rating'>
-                                        <p className='rating-value'>
-                                            {userRating !== null && userRating !== 0 ? (hoveredRating !== null ? hoveredRating : userRating) : (hoveredRating !== null ? hoveredRating : '0')}
-                                        </p>
-                                        <p className='rating-span'>/10</p>
+                                        {userRating ? (
+                                            <>
+                                                <p className='rating-value'>
+                                                    {userRating !== null && userRating !== 0 ? (hoveredRating !== null ? hoveredRating : userRating) : (hoveredRating !== null ? hoveredRating : '0')}
+                                                </p>
+                                                <p className='rating-span'>/10</p>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p>Оцініть</p>
+                                            </>
+                                        )}
                                     </div>
-                                    <div className='stars-container'>
-                                        {[...Array(10)].map((_, index) => (
-                                            <IoStar
-                                                key={index + 1}
-                                                size={24}
-                                                min={24}
-                                                className={`star ${index < (hoveredRating !== null ? hoveredRating : rating) ? 'filled' : ''}`}
-                                                onMouseEnter={() => setHoveredRating(index + 1)}
-                                                onMouseLeave={() => setHoveredRating(null)} 
-                                                onClick={() => handleRatingChange(index + 1)}
-                                            />
-                                        ))}
-                                    </div>
+                                    {isRatingFormVisible && (
+                                        <div className='stars-container'>
+                                            <div className='rating-header'>
+                                                <p>Оцініть це</p>
+                                                <button className='close-button' onClick={handleCloseButtonClick}><LuX size={24}/></button>
+                                            </div>
+                                            <div className='stars'>
+                                                {[...Array(10)].map((_, index) => {
+                                                    const uniqueKey = `star-${index}`;
+                                                    return (
+                                                        <IoStar
+                                                            key={uniqueKey}
+                                                            size={30}
+                                                            min={30}
+                                                            className={`star ${index < (hoveredRating !== null ? hoveredRating : rating) ? 'filled' : ''}`}
+                                                            onMouseEnter={() => setHoveredRating(index + 1)}
+                                                            onMouseLeave={() => setHoveredRating(null)} 
+                                                            onClick={() => handleRatingChange(index + 1)}
+                                                        />
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             
@@ -259,22 +313,27 @@ const MoviePage = () => {
                                     <td className="info">Дата релізу:</td>
                                     <td className="info-span">{new Date(series.series.release_date).getFullYear()}</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Країна:</td>
                                     <td className="info-span">{series.series.release_country}</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Рейтинг MPAA:</td>
                                     <td className="info-span">{convertToMPAA(series.series.age_rating)}</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Вік:</td>
                                     <td className="info-span">{series.series.age_rating}</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Тривалість:</td>
                                     <td className="info-span">{series.series.duration_minutes} хвилин</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Жанри:</td>
                                     <td className="info-span">
@@ -283,10 +342,12 @@ const MoviePage = () => {
                                         ))}
                                     </td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Сезонів:</td>
                                     <td className="info-span">{series.series.season}</td>
                                 </tr>
+                                <div className='hor-line'></div>
                                 <tr className='content-row'>
                                     <td className="info">Кількість серій:</td>
                                     <td className="info-span">{series.series.episodes_count}</td>
@@ -332,17 +393,25 @@ const MoviePage = () => {
                 )}
             </div>
             <Auth />
-            <div className='trailer-conteiner content-conteiner' ref={trailerContainerRef}>
+            <div 
+                className={`trailer-conteiner content-conteiner ${isPlaying ? 'playing' : ''}`} 
+                ref={trailerContainerRef}
+            >
                 <ReactPlayer
                     url={series.series.trailer_url}
                     controls
                     className='trailer'
                     width='100%'
-                    height='678px'
+                    height='650px'
                     style={{
                         borderRadius: '10px',
                         overflow: 'hidden',
+                        boxShadow: isPlaying && '0 0 100vw 100vh black',
+                        transition: 'box-shadow 0.5s, transform 0.3s',
+                        transform: isPlaying && 'scale(1.06)',
                     }}
+                    onPlay={handlePlay}
+                    onPause={handlePause}
                 />
             </div>
             <SeriesComments seriesId={seriesId} />
@@ -354,18 +423,18 @@ export default MoviePage;
 
 
 function convertToMPAA(ageRating) {
-  switch (ageRating) {
-    case '0+':
-      return 'G';
-    case '6+':
-      return 'PG';
-    case '12+':
-      return 'PG-13';
-    case '16+':
-      return 'R';
-    case '18+':
-      return 'NC-17';
-    default:
-      return 'Not Rated';
-  }
+    switch (ageRating) {
+        case '0+':
+            return 'G';
+        case '6+':
+            return 'PG';
+        case '12+':
+            return 'PG-13';
+        case '16+':
+            return 'R';
+        case '18+':
+            return 'NC-17';
+        default:
+            return 'Not Rated';
+    }
 };

@@ -65,3 +65,15 @@
 #scroll-top button:active {
     background: var(--green-1);
 }
+
+@media (max-width: 400px) {
+    #scroll-top {
+        bottom: 15px;
+        right: 15px;
+    }
+
+    #scroll-top button {
+        height: 40px;
+        width: 40px;
+    }
+}
