@@ -23,7 +23,7 @@
 .content-image {
   height: 400px;
   width: 100%;
-  max-height: 270px;
+  max-height: 320px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -68,11 +68,18 @@
   z-index: 1;
 }
 
+.content-link {
+  width: 200px; /* Укажите нужную ширину */
+  white-space: nowrap; /* Устанавливает текст в одну строку */
+  overflow: hidden; /* Скрывает переполнение */
+  text-overflow: ellipsis;
+}
+
 .content-title {
   color: var(--blue-1);
   transition: 0.3s;
   font-weight: 600;
-  text-wrap: nowrap;
+  max-width: 100%;
 }
 
 .content-title:hover {
@@ -203,7 +210,7 @@ a.regular-btn.enter-auth-btn:hover {
   align-items: center;
 }
 
-.all-content-items {
+.all-content-items{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
@@ -311,6 +318,10 @@ a.regular-btn.enter-auth-btn:hover {
     grid-column-gap: 5px;
     grid-row-gap: 5px;
   }
+
+  .alert {
+    min-width: auto !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -320,6 +331,7 @@ a.regular-btn.enter-auth-btn:hover {
 
   .content-header {
     margin: 0;
+    font-size: 40px;
   }
 
   .navigation-btn {
@@ -368,6 +380,10 @@ a.regular-btn.enter-auth-btn:hover {
   .lucide.lucide-ellipsis {
     min-width: 20px;
   }
+
+  .alert {
+    min-width: 440px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -388,11 +404,17 @@ a.regular-btn.enter-auth-btn:hover {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  
+  .alert {
+    min-width: 740px;
+  }
 }
 
 @media (min-width: 1390px) {
   .content-container {
     margin: auto;
+  }
+
+  .alert {
+    min-width: 1000px;
   }
 }

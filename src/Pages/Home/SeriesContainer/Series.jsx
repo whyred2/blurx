@@ -20,7 +20,7 @@ const Series = () => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/content/series`)
             .then(response => {
-                setContent(response.data);
+                setContent(response.data.slice(0, 20));
                 setLoading(false);
             })
             .catch(error => {
@@ -68,7 +68,7 @@ const Series = () => {
 
     return (
         <div className='content-container'>
-            <h1 className='content-header'>Серіали</h1>
+            <h1 className='content-header'>Популярні серіали</h1>
             {isLoading ? (
                 <Loading />
             ) : (
@@ -85,7 +85,7 @@ const Series = () => {
                                     </div>
                                 </div>
                                 <div className='content-footer'>
-                                    <div className='content-link'>
+                                    <div className='content-link' style={{width: 'auto'}}>
                                         <Link to={`/series/${item.title}`} className='content-title'>{item.title}</Link>
                                         <p>{new Date(item.release_date).getFullYear()}</p>
                                     </div>

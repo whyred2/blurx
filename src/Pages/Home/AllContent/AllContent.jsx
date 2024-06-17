@@ -44,6 +44,8 @@ const AllContent = () => {
                     ...series.map((serie) => ({ ...serie, type: 'series' })),
                 ];
 
+                allContent.sort((a, b) => b.rating - a.rating);
+
                 setContent(allContent);
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
@@ -73,7 +75,7 @@ const AllContent = () => {
                 </div>
                 <div className='content-footer'>
                     <div className='content-link'>
-                        <Link to='' className='content-title'>{item.title}</Link>
+                        <Link to={item.season ? `/series/${item.title}` : `/movie/${item.title}`} className='content-title'>{item.title}</Link>
                         <p>{new Date(item.release_date).getFullYear()}</p>
                     </div>
                     <div className='content-add'>
@@ -90,7 +92,7 @@ const AllContent = () => {
 
     return (
         <div className='all-content-container'>
-            <h1 className='content-header'>Увесь контент</h1>
+            <h1 className='content-header'>Лідери рейтингів</h1>
             <div className='all-content-items'>
                 {displayContent}
             </div>

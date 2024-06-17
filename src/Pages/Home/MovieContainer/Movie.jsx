@@ -66,7 +66,7 @@ const Movie = () => {
 
     return (
         <div className='content-container'>
-            <h1 className='content-header'>Фільми</h1>
+            <h1 className='content-header'>Популярні фільми</h1>
             {isLoading ? (
                 <Loading />
             ) : (
@@ -83,7 +83,7 @@ const Movie = () => {
                                     </div>
                                 </div>
                                 <div className='content-footer'>
-                                    <div className='content-link'>
+                                    <div className='content-link' style={{width: 'auto'}}>
                                         <Link to={`/movie/${item.title}`} className='content-title'>{item.title}</Link>
                                         <p>{new Date(item.release_date).getFullYear()}</p>
                                     </div>

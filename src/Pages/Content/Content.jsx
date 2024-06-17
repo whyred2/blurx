@@ -159,7 +159,7 @@ const Content = ({ contentType }) => {
                                 </button>
                             </div>
                         </div>
-                        <div className='all-content-items' id='la-1'>      
+                        <div className={`all-content ${filteredContent.movies && filteredContent.movies.length > 0 && 'grid'}`} id='la-1'>
                             {isLoading ? (
                                 <Loading />
                             ) : (
@@ -268,7 +268,7 @@ const Content = ({ contentType }) => {
                                 </button>
                             </div>
                         </div>
-                        <div className='all-content-items' id='la-1'>
+                        <div className={`all-content ${filteredContent.series && filteredContent.series.length > 0 && 'grid'}`} id='la-1'>
                             {isLoading ? (
                                     <Loading />
                                 ) : (

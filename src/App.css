@@ -218,7 +218,6 @@ body.light-theme {
   border: 1px solid #ffeeba;
   padding: .75rem 1.25rem;
   border-radius: 10px;
-  height: 100px;
   width: 100%;
 }
 
@@ -234,7 +233,6 @@ body.light-theme {
   background: var(--black-2) !important;
   color: var(--white-text-dark) !important;
   border: 2px solid var(--border-color-dark);
-  width: 500px;
 }
 
 .change-input {

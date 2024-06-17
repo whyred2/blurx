@@ -127,7 +127,7 @@ function OutletFooter() {
       <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} toggleFeedbackForm={toggleFeedbackForm} />
       <FeedbackForm feedbackFormVisible={feedbackFormVisible} toggleVisibility={toggleFeedbackForm} />
 
-      <MobileHeader isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+      <MobileHeader isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} toggleFeedbackForm={toggleFeedbackForm} />
       <Outlet />
       <Footer isDarkTheme={isDarkTheme} />
     </>
