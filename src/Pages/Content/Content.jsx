@@ -169,7 +169,7 @@ const Content = ({ contentType }) => {
                                             <div key={item.id} className='content-movie'>
                                                 <div className='content-cover'>
                                                     <Link to={`/movie/${item.title}`}>
-                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} style={{maxHeight: '290px'}} />
+                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} style={{maxHeight: '310px'}} />
                                                     </Link>
                                                     <div className='content-rating'>
                                                         <IoStar size={24} min={24}/>{item.rating}
@@ -278,7 +278,7 @@ const Content = ({ contentType }) => {
                                             <div key={item.id} className='content-movie'>
                                                 <div className='content-cover'>
                                                     <Link to={`/series/${item.title}`}>
-                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} style={{maxHeight: '290px'}} />
+                                                        <img className='content-image' id='ci-1' src={item.cover_image} alt={item.title} style={{maxHeight: '310px'}} />
                                                     </Link>
                                                     <div className='content-rating'>
                                                         <IoStar size={24} min={24}/>{item.rating}
