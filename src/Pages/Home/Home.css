@@ -313,7 +313,7 @@ a.regular-btn.enter-auth-btn:hover {
 
   
 
-  .all-content-items {
+  .all-content {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-column-gap: 5px;
     grid-row-gap: 5px;
@@ -355,7 +355,7 @@ a.regular-btn.enter-auth-btn:hover {
     padding-left: 3px;
   }
 
-  .all-content-items, #la-1{
+  .all-content, #la-1{
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
@@ -400,7 +400,7 @@ a.regular-btn.enter-auth-btn:hover {
     min-height: 100px;
   }
   
-  .all-content-items {
+  .all-content {
     grid-template-columns: repeat(3, 1fr);
   }
   
