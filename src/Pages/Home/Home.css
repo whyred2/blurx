@@ -324,7 +324,7 @@ a.regular-btn.enter-auth-btn:hover {
   }
 
   .filter-container {
-    top: -60px;
+    top: -60px !important;
   }
 }
 
@@ -390,7 +390,7 @@ a.regular-btn.enter-auth-btn:hover {
   }
 
   .filter-container {
-    top: -60px;
+    top: -60px !important;
   }
 }
 
