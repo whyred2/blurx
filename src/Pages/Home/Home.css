@@ -322,6 +322,10 @@ a.regular-btn.enter-auth-btn:hover {
   .alert {
     min-width: auto !important;
   }
+
+  .filter-container {
+    top: -60px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -383,6 +387,10 @@ a.regular-btn.enter-auth-btn:hover {
 
   .alert {
     min-width: 440px;
+  }
+
+  .filter-container {
+    top: -60px;
   }
 }
 
